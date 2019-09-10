@@ -38,14 +38,14 @@ const Translator = () => {
 	const morseText = React.useRef(null)
 	const onSubmit = e => {
 		e.preventDefault()
-		const arrayOfWords = text.split(' ')
+		const arrayOfWords = text.split(' ').map(word => word.toLowerCase())
 		let morseWord = []
-		for (let word of arrayOfWords) {
-			let parsed = [...word.toLowerCase()].map(letter =>
+		arrayOfWords.map(word => {
+			let parsed = [...word].map(letter =>
 				morse[letter].map(i => (i === 0 ? '.' : '-')).join('')
 			)
-			morseWord.push(parsed.join(' '))
-		}
+			return morseWord.push(parsed.join(' '))
+		})
 		morseText.current.value = morseWord.join(' / ')
 	}
 	return (
