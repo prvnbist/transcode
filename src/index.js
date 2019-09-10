@@ -79,7 +79,7 @@ const Translator = () => {
 						ref={morseText}
 						name="morseText"
 						id="morseText"
-						readonly="true"
+						readOnly
 					/>
 				</fieldset>
 			</form>
