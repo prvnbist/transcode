@@ -2,6 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import GitHubButton from 'react-github-btn'
 
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs'
+
+import TextToMorse from './sections/TextToMorse'
+import MorseTable from './sections/MorseTable'
+
 import './styles/index.scss'
 
 // 0 - dot, 1 - dash
@@ -34,24 +39,7 @@ const morse = {
 	z: [1, 1, 0, 0]
 }
 
-const Translator = () => {
-	const [text, setText] = React.useState('')
-	const morseText = React.useRef(null)
-	const onSubmit = e => {
-		e.preventDefault()
-		const arrayOfWords = text
-			.split(' ')
-			.map(word => word.toLowerCase())
-			.filter(Boolean)
-		let morseWord = []
-		arrayOfWords.map(word => {
-			let parsed = [...word].map(letter =>
-				morse[letter].map(i => (i === 0 ? '.' : '-')).join('')
-			)
-			return morseWord.push(parsed.join(' '))
-		})
-		morseText.current.value = morseWord.join(' / ')
-	}
+const App = () => {
 	return (
 		<React.Fragment>
 			<nav>
@@ -64,37 +52,23 @@ const Translator = () => {
 					Star
 				</GitHubButton>
 			</nav>
-			<form
-				onSubmit={onSubmit}
-				onKeyDown={e => {
-					return e.keyCode === 13 ? onSubmit(e) : null
-				}}>
-				<fieldset>
-					<legend>Enter the text</legend>
-					<textarea
-						name="text"
-						id="text"
-						value={text}
-						onChange={e => setText(e.target.value)}
-					/>
-				</fieldset>
-				<button type="submit">Translate</button>
-				<span>/ - Word Separator</span>
-				<fieldset>
-					<legend>Morse Code</legend>
-					<textarea
-						style={{ fontWeight: 'bold' }}
-						ref={morseText}
-						name="morseText"
-						id="morseText"
-						readOnly
-					/>
-				</fieldset>
-			</form>
-			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
+			<Tabs>
+				<TabList>
+					<Tab>Text to Morse</Tab>
+					<Tab>Morse Table</Tab>
+				</TabList>
+				<TabPanels>
+					<TabPanel>
+						<TextToMorse morse={morse} />
+					</TabPanel>
+					<TabPanel>
+						<MorseTable morse={morse} />
+					</TabPanel>
+				</TabPanels>
+			</Tabs>
 		</React.Fragment>
 	)
 }
 
 const rootElement = document.getElementById('root')
-ReactDOM.render(<Translator />, rootElement)
+ReactDOM.render(<App />, rootElement)

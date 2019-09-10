@@ -1,8 +1,9 @@
 {
     "name": "morse-translator",
-    "version": "0.1.11",
+    "version": "0.2",
     "private": true,
     "dependencies": {
+        "@reach/tabs": "^0.1.6",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
         "react-github-btn": "^1.0.6",
