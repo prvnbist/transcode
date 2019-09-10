@@ -13,8 +13,6 @@ body {
     font-family: "Share Tech Mono", monospace;
 }
 
-
-
 #root {
     margin: 24px;
     display: flex;
@@ -59,6 +57,7 @@ form {
         resize: none;
         color: #fff;
         padding: 8px;
+        font-size: 18px;
         background: #1e162b;
         border: 1px solid #3a2c53;
     }

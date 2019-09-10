@@ -71,11 +71,12 @@ const Translator = () => {
 						onChange={e => setText(e.target.value)}
 					/>
 				</fieldset>
-				<button>Translate</button>
+				<button type="submit">Translate</button>
 				<span>/ - Word Separator</span>
 				<fieldset>
 					<legend>Morse Code</legend>
 					<textarea
+						style={{ fontWeight: 'bold' }}
 						ref={morseText}
 						name="morseText"
 						id="morseText"
