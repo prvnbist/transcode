@@ -61,7 +61,11 @@ const Translator = () => {
 					Star
 				</GitHubButton>
 			</nav>
-			<form onSubmit={onSubmit}>
+			<form
+				onSubmit={onSubmit}
+				onKeyDown={e => {
+					return e.keyCode === 13 ? onSubmit(e) : null
+				}}>
 				<fieldset>
 					<legend>Enter the text</legend>
 					<textarea
@@ -84,6 +88,7 @@ const Translator = () => {
 					/>
 				</fieldset>
 			</form>
+			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
 		</React.Fragment>
 	)
 }
