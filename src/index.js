@@ -39,7 +39,10 @@ const Translator = () => {
 	const morseText = React.useRef(null)
 	const onSubmit = e => {
 		e.preventDefault()
-		const arrayOfWords = text.split(' ').map(word => word.toLowerCase())
+		const arrayOfWords = text
+			.split(' ')
+			.map(word => word.toLowerCase())
+			.filter(Boolean)
 		let morseWord = []
 		arrayOfWords.map(word => {
 			let parsed = [...word].map(letter =>
