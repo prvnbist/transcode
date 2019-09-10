@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import GitHubButton from 'react-github-btn'
 
 import './styles/index.scss'
 
@@ -49,7 +50,17 @@ const Translator = () => {
 		morseText.current.value = morseWord.join(' / ')
 	}
 	return (
-		<div id="wrapper">
+		<React.Fragment>
+			<nav>
+				<h2>Morse Translator</h2>
+				<GitHubButton
+					href="https://github.com/prvnbist/morse-translator"
+					data-size="large"
+					data-show-count="true"
+					aria-label="Star prvnbist/morse-translator on GitHub">
+					Star
+				</GitHubButton>
+			</nav>
 			<form onSubmit={onSubmit}>
 				<fieldset>
 					<legend>Enter the text</legend>
@@ -72,7 +83,7 @@ const Translator = () => {
 					/>
 				</fieldset>
 			</form>
-		</div>
+		</React.Fragment>
 	)
 }
 

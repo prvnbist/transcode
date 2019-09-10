@@ -13,10 +13,27 @@ body {
     font-family: "Share Tech Mono", monospace;
 }
 
-#wrapper {
+
+
+#root {
     margin: 24px;
     display: flex;
-    justify-content: center;
+    width: 524px;
+    margin: auto;
+    flex-direction: column;
+    nav {
+        height: 80px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2 {
+            font-weight: 100;
+        }
+    }
+    
+}
+
+form {
     span {
         text-transform: capitalize;
         float: right;
