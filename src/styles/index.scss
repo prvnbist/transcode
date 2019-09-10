@@ -78,3 +78,18 @@ form {
         background: #ffffff;
     }
 }
+
+
+@media screen and (max-width: 568px) {
+    #root {
+        width: calc(100vw - 40px);
+    }
+
+    form {
+        width: 100%;
+        textarea {
+            width: 100%;
+        }
+    }
+
+}
