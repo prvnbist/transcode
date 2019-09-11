@@ -18,13 +18,19 @@ const TextToMorse = ({ morse }) => {
 		})
 		morseText.current.value = morseWord.join(' / ')
 	}
+
+	const keySequence = ['Control', 'Enter']
+	let userInput = new Array(keySequence.length)
+	const shortcut = e => {
+		userInput = [...userInput.slice(1), e.key]
+		if (keySequence.every((v, k) => v === userInput[k])) {
+			onSubmit(e)
+		}
+	}
+
 	return (
 		<React.Fragment>
-			<form
-				onSubmit={onSubmit}
-				onKeyDown={e => {
-					return e.keyCode === 13 ? onSubmit(e) : null
-				}}>
+			<form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
 				<fieldset>
 					<legend>Enter the text</legend>
 					<textarea
