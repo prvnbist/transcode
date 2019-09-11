@@ -5,12 +5,13 @@ import GitHubButton from 'react-github-btn'
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs'
 
 import TextToMorse from './sections/TextToMorse'
+import MorseToText from './sections/MorseToText'
 import MorseTable from './sections/MorseTable'
 
 import './styles/index.scss'
 
 // 0 - dot, 1 - dash
-const morse = {
+const textToMorse = {
 	a: [0, 1],
 	b: [1, 0, 0, 0],
 	c: [1, 0, 1, 0],
@@ -38,6 +39,34 @@ const morse = {
 	y: [1, 0, 1, 1],
 	z: [1, 1, 0, 0]
 }
+const morseToText = {
+	'01': 'a',
+	'1000': 'b',
+	'1010': 'c',
+	'100': 'd',
+	'0': 'e',
+	'0010': 'f',
+	'110': 'g',
+	'0000': 'h',
+	'00': 'i',
+	'0111': 'j',
+	'101': 'k',
+	'0100': 'l',
+	'11': 'm',
+	'10': 'n',
+	'111': 'o',
+	'0110': 'p',
+	'1101': 'q',
+	'010': 'r',
+	'000': 's',
+	'1': 't',
+	'001': 'u',
+	'0001': 'v',
+	'011': 'w',
+	'1001': 'x',
+	'1011': 'y',
+	'1100': 'z'
+}
 
 const App = () => {
 	return (
@@ -55,14 +84,18 @@ const App = () => {
 			<Tabs>
 				<TabList>
 					<Tab>Text to Morse</Tab>
+					<Tab>Morse to Text</Tab>
 					<Tab>Morse Table</Tab>
 				</TabList>
 				<TabPanels>
 					<TabPanel>
-						<TextToMorse morse={morse} />
+						<TextToMorse morse={textToMorse} />
 					</TabPanel>
 					<TabPanel>
-						<MorseTable morse={morse} />
+						<MorseToText morse={morseToText} />
+					</TabPanel>
+					<TabPanel>
+						<MorseTable morse={textToMorse} />
 					</TabPanel>
 				</TabPanels>
 			</Tabs>

@@ -41,4 +41,21 @@
     #root {
         width: calc(100vw - 40px);
     }
+
+    [data-reach-tab-list] {
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        border-bottom: none;
+    }
+
+    [data-reach-tab] {
+        flex: 50%;
+        height: 40px;
+        border-bottom: 1px solid #3a2c53;
+    }
+
+    [data-selected] {
+        border-bottom: 2px solid #9962ff;
+    }
 }
