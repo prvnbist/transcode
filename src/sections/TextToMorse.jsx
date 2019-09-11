@@ -6,6 +6,7 @@ const TextToMorse = ({ morse }) => {
 	const onSubmit = e => {
 		e.preventDefault()
 		const arrayOfWords = text
+			.replace(/\n/g, ' ')
 			.split(' ')
 			.map(word => word.toLowerCase())
 			.filter(Boolean)

@@ -1,7 +1,10 @@
 import React from 'react'
 
 const splitTowords = code => {
-	return code.split('/').map(word => word.split(' ').filter(Boolean))
+	return code
+		.replace(/\n/g, ' ')
+		.split('/')
+		.map(word => word.split(' ').filter(Boolean))
 }
 
 const convertWordsToBinaryArray = words => {
