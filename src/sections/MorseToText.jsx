@@ -27,6 +27,7 @@ const convertBinaryToText = (binaryWords, morse) => {
 
 const MorseToText = ({ morse }) => {
 	const [morseCode, setMorseCode] = React.useState('')
+	const [errors, setError] = React.useState('')
 	const translatedText = React.useRef(null)
 	const onSubmit = e => {
 		e.preventDefault()
@@ -46,6 +47,20 @@ const MorseToText = ({ morse }) => {
 		}
 	}
 
+	const validate = value => {
+		const chars = value
+			.replace(/\n/g, ' ')
+			.match(/[!$%^&*()_+|~=`{}[\]:";'<>?,@#0-9a-z]/gi)
+		if (chars && chars.length > 0) {
+			return setError(
+				`Invalid character${
+					chars.length === 1 ? '' : 's'
+				} will be omitted!: ${chars.join(' ')}`
+			)
+		}
+		return setError('')
+	}
+
 	return (
 		<React.Fragment>
 			<form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
@@ -56,9 +71,13 @@ const MorseToText = ({ morse }) => {
 						id="text"
 						placeholder="Use single space inbetween letters and / for space between words"
 						value={morseCode}
-						onChange={e => setMorseCode(e.target.value)}
+						onChange={e =>
+							setMorseCode(e.target.value) ||
+							validate(e.target.value)
+						}
 					/>
 				</fieldset>
+				{errors && <div id="errors">{errors}</div>}
 				<div>
 					<button type="submit">Translate</button>
 				</div>

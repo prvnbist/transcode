@@ -46,6 +46,15 @@ form {
     }
 }
 
+#errors {
+    height: auto;
+    line-height: 40px;
+    border-radius: 4px;
+    padding-left: 12px;
+    margin-bottom: 24px;
+    background: #f76767;
+}
+
 
 @media screen and (max-width: 568px) {
     form {

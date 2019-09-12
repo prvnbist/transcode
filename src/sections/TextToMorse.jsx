@@ -2,11 +2,13 @@ import React from 'react'
 
 const TextToMorse = ({ morse }) => {
 	const [text, setText] = React.useState('')
+	const [errors, setError] = React.useState('')
 	const morseText = React.useRef(null)
 	const onSubmit = e => {
 		e.preventDefault()
 		const arrayOfWords = text
 			.replace(/\n/g, ' ')
+			.replace(/[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g, '')
 			.split(' ')
 			.map(word => word.toLowerCase())
 			.filter(Boolean)
@@ -29,6 +31,20 @@ const TextToMorse = ({ morse }) => {
 		}
 	}
 
+	const validate = value => {
+		const chars = value
+			.replace(/\n/g, ' ')
+			.match(/[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g, '')
+		if (chars && chars.length > 0) {
+			return setError(
+				`Invalid character${
+					chars.length === 1 ? '' : 's'
+				} will be omitted!: ${chars.join(' ')}`
+			)
+		}
+		return setError('')
+	}
+
 	return (
 		<React.Fragment>
 			<form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
@@ -38,9 +54,12 @@ const TextToMorse = ({ morse }) => {
 						name="text"
 						id="text"
 						value={text}
-						onChange={e => setText(e.target.value)}
+						onChange={e =>
+							setText(e.target.value) || validate(e.target.value)
+						}
 					/>
 				</fieldset>
+				{errors && <div id="errors">{errors}</div>}
 				<button type="submit">Translate</button>
 				<span>/ - Word Separator</span>
 				<fieldset>
