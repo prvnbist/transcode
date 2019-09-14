@@ -37,8 +37,5 @@
     },
     "bugs": {
         "url": "https://github.com/prvnbist/morse-translator/issues"
-    },
-    "devDependencies": {
-        "node-sass": "^4.12.0"
     }
 }

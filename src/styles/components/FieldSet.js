@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 const FieldSet = styled.fieldset`
-	padding: calc(var(--base-pt) * 2.75px);
-	margin-bottom: calc(var(--base-pt) * 3px);
+	padding: ${props => `${props.theme.basePt * 2.75}px`};
+	margin-bottom: ${props => `${props.theme.basePt * 3}px`};
 `
 
 export default FieldSet

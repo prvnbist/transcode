@@ -1,59 +1,55 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import App from './App'
 import Header from './components/Header'
 
 const GlobalStyle = createGlobalStyle`
-	:root {
-		--dark1: #282C35;
-		--dark2: #373D49;
-		--active: #7E8CE0;
-		--warning: #FFAF5F;
-		--border-color: #373d49;
-
-		--base-pt: 8;
-	
-		--container-width: 524px;
-		--font: "Share Tech Mono", monospace;
-	}
-
 	* {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		font-family: var(--font);
+		font-family: ${props => props.theme.font};
 	}
 
 	body {
 		color: #fff;
-		background: var(--dark1);
-		font-family: var(--font);
-	}
-
-	#root {
-		margin: auto;
-		display: flex;
-		flex-direction: column;
-		width: var(--container-width);
-		padding-bottom: calc(var(--base-pt) * 3px);
-	}
-
-	@media (max-width: 568px) {
-		#root {
-			width: calc(100vw - calc(var(--base-pt) * 5px));
-		}
+		background:  ${props => props.theme.dark1};
 	}
 `
 
+const Wrapper = styled.div`
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	width: ${props => `${props.width}px`};
+	padding-bottom: ${props => `${props.theme.basePt * 3}px`};
+	@media (max-width: 568px) {
+		width: ${props => `calc(100% - ${props.theme.basePt * 5}px)`};
+	}
+`
+
+const theme = {
+	basePt: 8,
+	dark1: '#282C35',
+	dark2: '#373D49',
+	active: '#7E8CE0',
+	warning: '#FFAF5F',
+	borderColor: '#373d49',
+	containerWidth: '524px',
+	font: '"Share Tech Mono", monospace'
+}
+
 const rootElement = document.getElementById('root')
 ReactDOM.render(
-	<React.Fragment>
-		<GlobalStyle />
-		<Header />
-		<App />
-	</React.Fragment>,
+	<ThemeProvider theme={theme}>
+		<Wrapper width={524}>
+			<GlobalStyle />
+			<Header />
+			<App />
+		</Wrapper>
+	</ThemeProvider>,
 	rootElement
 )

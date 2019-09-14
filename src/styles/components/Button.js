@@ -6,9 +6,9 @@ const Button = styled.button`
 	cursor: pointer;
 	border: 1px solid #fff;
 	background: transparent;
-	height: calc(var(--base-pt) * 6px);
-	font-size: calc(var(--base-pt) * 2px);
-	margin-bottom: calc(var(--base-pt) * 3px);
+	height: ${props => `${props.theme.basePt * 6}px`};
+	font-size: ${props => `${props.theme.basePt * 2}px`};
+	margin-bottom: ${props => `${props.theme.basePt * 3}px`};
 	:hover {
 		color: #1e162b;
 		font-weight: bold;
