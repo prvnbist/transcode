@@ -25,20 +25,20 @@ export default MorseTable
 const Letter = styled.div`
 	display: flex;
 	align-items: center;
-	background: var(--dark2);
-	padding: calc(var(--base-pt) * 2px);
-	border-radius: calc(var(--base-pt) * 0.75px);
+	background: ${props => props.theme.dark2};
+	padding: ${props => `${props.theme.basePt * 2}px`};
+	border-radius: ${props => `${props.theme.basePt * 0.75}px`};
 `
 
 const LetterName = styled.span`
 	text-transform: uppercase;
-	border-right: 2px solid var(--dark1);
-	font-size: calc(var(--base-pt) * 2.5px);
-	margin-right: calc(var(--base-pt) * 2px);
-	padding-right: calc(var(--base-pt) * 2px);
+	border-right: ${props => `2px solid ${props.theme.dark1}`};
+	font-size: ${props => `${props.theme.basePt * 2.5}px`};
+	margin-right: ${props => `${props.theme.basePt * 2}px`};
+	padding-right: ${props => `${props.theme.basePt * 2}px`};
 `
 
 const LetterCode = styled.i`
 	font-weight: bold;
-	font-size: calc(var(--base-pt) * 3px);
+	font-size: ${props => `${props.theme.basePt * 3}px`};
 `

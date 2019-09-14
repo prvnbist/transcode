@@ -2,11 +2,11 @@ import styled from 'styled-components'
 
 const Error = styled.div`
 	height: auto;
-	background: var(--warning);
-	line-height: calc(var(--base-pt) * 5px);
-	margin-bottom: calc(var(--base-pt) * 3px);
-	border-radius: calc(var(--base-pt) * 0.5px);
-	padding-left: calc(var(--base-pt) * 1.75px);
+	background: ${props => props.theme.warning};
+	line-height: ${props => `${props.theme.basePt * 5}px`};
+	margin-bottom: ${props => `${props.theme.basePt * 3}px`};
+	border-radius: ${props => `${props.theme.basePt * 0.5}px`};
+	padding-left: ${props => `${props.theme.basePt * 1.75}px`};
 `
 
 export default Error

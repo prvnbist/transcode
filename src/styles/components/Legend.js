@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Legend = styled.legend`
-	padding: 0 calc(var(--base-pt) * 1px);
+	padding: ${props => `0 ${props.theme.basePt * 1}px`};
 `
 
 export default Legend

@@ -91,32 +91,32 @@ const App = () => {
 export default App
 
 const StyledTabList = styled(TabList)`
-	height: 40px;
-	margin-bottom: 24px;
-	border-bottom: 1px solid var(--border-color);
+	height: ${props => `${props.theme.basePt * 5}px`};
+	margin-bottom: ${props => `${props.theme.basePt * 3}px`};
+	border-bottom: ${props => `1px solid ${props.theme.borderColor}`};
 	> [data-reach-tab][data-selected] {
-		border-bottom: 2px solid var(--active);
+		border-bottom: ${props => `2px solid ${props.theme.active}`};
 	}
 	@media (max-width: 568px) {
+		height: auto;
 		display: flex;
 		flex-wrap: wrap;
-		height: auto;
 		border-bottom: none;
 	}
 `
 
 const TabItem = styled(Tab)`
-	height: inherit;
 	width: auto;
-	padding: 0 12px;
-	font-size: 16px;
-	border: none;
 	color: #fff;
+	border: none;
+	height: inherit;
 	cursor: pointer;
 	background: transparent;
+	padding: ${props => `0 ${props.theme.basePt * 1.5}px`};
+	font-size: ${props => `${props.theme.basePt * 2}px`};
 	@media (max-width: 568px) {
 		flex: 50%;
-		height: 40px;
-		border-bottom: 1px solid var(--border-color);
+		height: ${props => `${props.theme.basePt * 5}px`};
+		border-bottom: ${props => `1px solid ${props.theme.borderColor}`};
 	}
 `
