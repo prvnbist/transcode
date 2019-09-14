@@ -1,5 +1,14 @@
 import React from 'react'
 
+import {
+	Form,
+	FieldSet,
+	Legend,
+	TextArea,
+	Error,
+	Button
+} from '../../styles/index'
+
 const splitTowords = code => {
 	return code
 		.replace(/\n/g, ' ')
@@ -63,10 +72,10 @@ const MorseToText = ({ morse }) => {
 
 	return (
 		<React.Fragment>
-			<form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
-				<fieldset>
-					<legend>Enter the morse code</legend>
-					<textarea
+			<Form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
+				<FieldSet>
+					<Legend>Morse</Legend>
+					<TextArea
 						name="text"
 						id="text"
 						placeholder="Use single space inbetween letters and / for space between words"
@@ -76,22 +85,22 @@ const MorseToText = ({ morse }) => {
 							validate(e.target.value)
 						}
 					/>
-				</fieldset>
-				{errors && <div id="errors">{errors}</div>}
+				</FieldSet>
+				{errors && <Error>{errors}</Error>}
 				<div>
-					<button type="submit">Translate</button>
+					<Button type="submit">Translate</Button>
 				</div>
-				<fieldset>
-					<legend>Output Text</legend>
-					<textarea
+				<FieldSet>
+					<Legend>Text</Legend>
+					<TextArea
 						style={{ fontWeight: 'bold' }}
 						ref={translatedText}
 						name="translatedText"
 						id="translatedText"
 						readOnly
 					/>
-				</fieldset>
-			</form>
+				</FieldSet>
+			</Form>
 			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
 		</React.Fragment>
 	)
