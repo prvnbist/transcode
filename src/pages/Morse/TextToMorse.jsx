@@ -1,5 +1,15 @@
 import React from 'react'
 
+import {
+	Form,
+	FieldSet,
+	Legend,
+	TextArea,
+	Tip,
+	Error,
+	Button
+} from '../../styles/index'
+
 const TextToMorse = ({ morse }) => {
 	const [text, setText] = React.useState('')
 	const [errors, setError] = React.useState('')
@@ -47,32 +57,32 @@ const TextToMorse = ({ morse }) => {
 
 	return (
 		<React.Fragment>
-			<form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
-				<fieldset>
-					<legend>Enter the text</legend>
-					<textarea
+			<Form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
+				<FieldSet>
+					<Legend>Text</Legend>
+					<TextArea
 						name="text"
 						id="text"
 						value={text}
+						placeholder="Enter your text"
 						onChange={e =>
 							setText(e.target.value) || validate(e.target.value)
 						}
 					/>
-				</fieldset>
-				{errors && <div id="errors">{errors}</div>}
-				<button type="submit">Translate</button>
-				<span>/ - Word Separator</span>
-				<fieldset>
-					<legend>Morse Code</legend>
-					<textarea
-						style={{ fontWeight: 'bold' }}
+				</FieldSet>
+				{errors && <Error>{errors}</Error>}
+				<Button type="submit">Translate</Button>
+				<Tip>/ - Word Separator</Tip>
+				<FieldSet>
+					<Legend>Morse</Legend>
+					<TextArea
 						ref={morseText}
 						name="morseText"
 						id="morseText"
 						readOnly
 					/>
-				</fieldset>
-			</form>
+				</FieldSet>
+			</Form>
 			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
 		</React.Fragment>
 	)
