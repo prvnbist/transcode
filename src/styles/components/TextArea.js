@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 const TextArea = styled.textarea`
 	color: #fff;
+	width: 100%;
 	resize: none;
 	background: ${props => props.theme.dark2};
-	width: ${props => `${props.theme.basePt * 60}px`};
 	padding: ${props => `${props.theme.basePt * 1}px`};
 	height: ${props => `${props.theme.basePt * 15}px`};
 	font-size: ${props => `${props.theme.basePt * 2}px`};

@@ -6,8 +6,38 @@ import {
 	Legend,
 	TextArea,
 	Error,
-	Button
+	Button,
+	Title3
 } from '../../styles/index'
+
+const morse = {
+	'01': 'a',
+	'1000': 'b',
+	'1010': 'c',
+	'100': 'd',
+	'0': 'e',
+	'0010': 'f',
+	'110': 'g',
+	'0000': 'h',
+	'00': 'i',
+	'0111': 'j',
+	'101': 'k',
+	'0100': 'l',
+	'11': 'm',
+	'10': 'n',
+	'111': 'o',
+	'0110': 'p',
+	'1101': 'q',
+	'010': 'r',
+	'000': 's',
+	'1': 't',
+	'001': 'u',
+	'0001': 'v',
+	'011': 'w',
+	'1001': 'x',
+	'1011': 'y',
+	'1100': 'z'
+}
 
 const splitTowords = code => {
 	return code
@@ -34,7 +64,7 @@ const convertBinaryToText = (binaryWords, morse) => {
 		.join(' ')
 }
 
-const MorseToText = ({ morse }) => {
+const MorseToText = () => {
 	const [morseCode, setMorseCode] = React.useState('')
 	const [errors, setError] = React.useState('')
 	const translatedText = React.useRef(null)
@@ -72,6 +102,7 @@ const MorseToText = ({ morse }) => {
 
 	return (
 		<React.Fragment>
+			<Title3>Morse To Text</Title3>
 			<Form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
 				<FieldSet>
 					<Legend>Morse</Legend>
