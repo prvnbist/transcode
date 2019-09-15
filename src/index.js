@@ -8,6 +8,7 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import Header from './components/Header'
 import NavBar from './components/NavBar'
+import Homepage from './pages/Homepage'
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -70,19 +71,17 @@ const Main = () => {
 					<Header toggleMenu={toggleMenu} />
 					<NavBar isMenuVisible={isMenuVisible} />
 					<App>
+						<Route path="/" exact component={Homepage} />
 						<Route
 							path="/morse/text-to-morse"
-							exact
 							component={TextToMorse}
 						/>
 						<Route
 							path="/morse/morse-to-text"
-							exact
 							component={MorseToText}
 						/>
 						<Route
 							path="/morse/morse-table"
-							exact
 							component={MorseTable}
 						/>
 					</App>
