@@ -87,7 +87,9 @@ const TextToMorse = () => {
 
 	return (
 		<React.Fragment>
-			<Title3>Text to Morse</Title3>
+			<Title3 pt={3} pb={3}>
+				Text to Morse
+			</Title3>
 			<Form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
 				<FieldSet>
 					<Legend>Text</Legend>
@@ -102,7 +104,9 @@ const TextToMorse = () => {
 					/>
 				</FieldSet>
 				{errors && <Error>{errors}</Error>}
-				<Button type="submit">Translate</Button>
+				<Button type="submit" mb={3}>
+					Translate
+				</Button>
 				<Tip>/ - Word Separator</Tip>
 				<FieldSet>
 					<Legend>Morse</Legend>

@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
-const Title3 = styled.h3`
+const Paragraph = styled.p`
 	font-weight: 100;
-	font-size: ${props => `${props.theme.basePt * 3}px`};
+	line-height: ${props => `${props.theme.basePt * 3}px`};
+	font-size: ${props => `${props.theme.basePt * 2}px`};
 	padding: ${props =>
 		`${props.theme.basePt * (props.pt ? props.pt : 0)}px ${props.theme
 			.basePt * (props.pr ? props.pr : 0)}px ${props.theme.basePt *
@@ -10,4 +11,4 @@ const Title3 = styled.h3`
 			(props.pl ? props.pl : 0)}px`};
 `
 
-export default Title3
+export default Paragraph

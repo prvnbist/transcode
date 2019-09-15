@@ -8,11 +8,21 @@ const Button = styled.button`
 	background: transparent;
 	height: ${props => `${props.theme.basePt * 6}px`};
 	font-size: ${props => `${props.theme.basePt * 2}px`};
-	margin-bottom: ${props => `${props.theme.basePt * 3}px`};
+	margin: ${props =>
+		`${props.theme.basePt * (props.mt ? props.mt : 0)}px ${props.theme
+			.basePt * (props.mr ? props.mr : 0)}px ${props.theme.basePt *
+			(props.mb ? props.mb : 0)}px ${props.theme.basePt *
+			(props.ml ? props.ml : 0)}px`};
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
 	:hover {
-		color: #1e162b;
-		font-weight: bold;
 		background: #ffffff;
+		a {
+			color: #1e162b;
+			font-weight: bold;
+		}
 	}
 `
 

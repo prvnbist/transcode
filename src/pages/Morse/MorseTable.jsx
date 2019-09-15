@@ -35,7 +35,9 @@ const morse = {
 const MorseTable = () => {
 	return (
 		<React.Fragment>
-			<Title3>Morse Table</Title3>
+			<Title3 pt={3} pb={3}>
+				Morse Table
+			</Title3>
 			<Container col_md={3} col_sm={2} gap={16}>
 				{Object.entries(morse).map(([letter, sequence]) => (
 					<Letter key={letter}>

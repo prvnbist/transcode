@@ -7,6 +7,8 @@ import TextArea from './components/TextArea'
 import Tip from './components/Tip'
 import Container from './components/Container'
 import Title3 from './components/Title3'
+import Title4 from './components/Title4'
+import Paragraph from './components/Paragraph'
 
 export {
 	Button,
@@ -17,5 +19,7 @@ export {
 	TextArea,
 	Tip,
 	Container,
-	Title3
+	Title3,
+	Title4,
+	Paragraph
 }
