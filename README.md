@@ -4,9 +4,9 @@ ___
 
 **Demo**:link: - https://transcode.prvnbist.com
 
-**Built with**:hammer:
+**Built with**:hammer:               
 | ![ReactJs](https://res.cloudinary.com/prvnbist/image/upload/c_scale,h_80/v1564054850/React.js_logo-512_bvpygm.png "ReactJs")        |
-| ------------- |
+| :-------------: |
 | ReactJs |  
 
 **Roadmap** :construction:
