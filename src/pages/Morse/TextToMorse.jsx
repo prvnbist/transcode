@@ -40,6 +40,19 @@ const morse = {
 	z: [1, 1, 0, 0]
 }
 
+const playTone = (type, x) => {
+	var context = new AudioContext()
+	var o = null
+	var g = null
+	o = context.createOscillator()
+	g = context.createGain()
+	o.connect(g)
+	o.type = type
+	g.connect(context.destination)
+	o.start(0)
+	g.gain.exponentialRampToValueAtTime(0.000001, context.currentTime + x)
+}
+
 const TextToMorse = () => {
 	const [text, setText] = React.useState('')
 	const [errors, setError] = React.useState('')
@@ -85,6 +98,21 @@ const TextToMorse = () => {
 		return setError('')
 	}
 
+	const handleClick = () => {
+		console.log(morseText.current.value)
+		let initialTime = 0
+		morseText.current.value.split('').map(element => {
+			setTimeout(() => {
+				if (element == '.') playTone('triangle', 1)
+				if (element == '-') playTone('triangle', 2)
+			}, initialTime)
+			if (element != '/') {
+				if (element == '-') initialTime += 350
+				else initialTime += 150
+			}
+		})
+	}
+
 	return (
 		<React.Fragment>
 			<Title3 pt={3} pb={3}>
@@ -118,6 +146,8 @@ const TextToMorse = () => {
 					/>
 				</FieldSet>
 			</Form>
+			<button onClick={() => handleClick()}>Play ▶️</button>
+			<br />
 			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
 		</React.Fragment>
 	)
