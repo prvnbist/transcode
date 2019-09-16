@@ -56,6 +56,8 @@ const playTone = (type, x) => {
 const TextToMorse = () => {
 	const [text, setText] = React.useState('')
 	const [errors, setError] = React.useState('')
+	const [timeOuts, setTimeOuts] = React.useState('')
+	const [loopTimeOut, setLoop] = React.useState('')
 	const morseText = React.useRef(null)
 	const onSubmit = e => {
 		e.preventDefault()
@@ -98,20 +100,48 @@ const TextToMorse = () => {
 		return setError('')
 	}
 
-	const handleClick = () => {
-		console.log(morseText.current.value)
-		let initialTime = 0
-		morseText.current.value.split('').map(element => {
-			setTimeout(() => {
-				if (element == '.') playTone('triangle', 1)
-				if (element == '-') playTone('triangle', 2)
-			}, initialTime)
-			if (element != '/') {
-				if (element == '-') initialTime += 350
+	const handlePlay = () => {
+		handlePause();
+		let initialTime = 0;
+		setTimeOuts(morseText.current.value.split('').map(element => {
+			if (element !== '/') {
+				if (element === '-') initialTime += 350
 				else initialTime += 150
 			}
-		})
+			return setTimeout(() => {
+				if (element === '.') playTone('triangle', 1)
+				if (element === '-') playTone('triangle', 2)
+			}, initialTime)
+		}))
+	};
+
+	const handlePause = () => {
+		if(timeOuts) {
+			timeOuts.map(element => clearTimeout(element));
+			clearTimeout(loopTimeOut);
+
+			setTimeOuts("");
+			setLoop("");
+		}
 	}
+
+	const handleLoop = () => {
+		handlePause();
+		let initialTime = 0;
+		setTimeOuts(morseText.current.value.split('').map(element => {
+			if (element !== '/') {
+				if (element === '-') initialTime += 350
+				else initialTime += 150
+			}
+			return setTimeout(() => {
+				if (element === '.') playTone('triangle', 1)
+				if (element === '-') playTone('triangle', 2)
+			}, initialTime)
+		}))
+		setLoop(setTimeout(() => {
+			handleLoop()
+		}, initialTime + 500));
+	};
 
 	return (
 		<React.Fragment>
@@ -146,7 +176,9 @@ const TextToMorse = () => {
 					/>
 				</FieldSet>
 			</Form>
-			<button onClick={() => handleClick()}>Play ▶️</button>
+			<button onClick={() => handlePlay()}>Play ▶️</button>
+			<button onClick={() => handlePause()}>Stop ⏹</button>
+			<button onClick={() => handleLoop()}>Loop 🔄</button>
 			<br />
 			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
 		</React.Fragment>
