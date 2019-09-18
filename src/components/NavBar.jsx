@@ -82,7 +82,7 @@ const Nav = styled.nav`
 		z-index: 1000;
 		display: ${props => (props.isMenuVisible ? 'block' : 'none')};
 		background: ${props => props.theme.dark1};
-		top: ${props => `${props.theme.basePt * 10}px`};
+		top: ${props => `${props.theme.basePt * 7}px`};
 		width: ${props => `${props.theme.basePt * 40}px`};
 	}
 `
@@ -111,6 +111,7 @@ const List = styled.ul`
 `
 const ListItem = styled.li`
 	color: #fff;
+	font-size: 14px;
 	list-style: none;
 	cursor: pointer;
 	position: relative;

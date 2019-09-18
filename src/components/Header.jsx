@@ -3,6 +3,8 @@ import GitHubButton from 'react-github-btn'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
+import Logo from '../assets/Logo'
+
 const Header = ({ toggleMenu }) => {
 	const toggleMenuIcon = e => {
 		e.stopPropagation()
@@ -21,7 +23,9 @@ const Header = ({ toggleMenu }) => {
 					<div></div>
 					<div></div>
 				</MenuIcon>
-				<Link to="/">Code Translator</Link>
+				<Link to="/">
+					<Logo />
+				</Link>
 			</Brand>
 			<GitHubButton
 				href="https://github.com/prvnbist/morse-translator"
@@ -41,8 +45,8 @@ const HeaderContainer = styled.header`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	height: ${props => `${props.theme.basePt * 10}px`};
-	padding-right: ${props => `${props.theme.basePt * 2}px`};
+	height: ${props => `${props.theme.basePt * 7}px`};
+	padding-right: ${props => `${props.theme.basePt}px`};
 	border-bottom: ${props => `1px solid ${props.theme.dark2}`};
 	border-right: ${props => `1px solid ${props.theme.dark2}`};
 	@media (max-width: 860px) {
