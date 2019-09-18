@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { Container, Title3 } from '../../styles/index'
+import { Title3 } from '../../styles/index'
 
 const morse = {
 	a: [0, 1],
@@ -34,11 +34,11 @@ const morse = {
 
 const MorseTable = () => {
 	return (
-		<React.Fragment>
+		<Wrapper>
 			<Title3 pt={3} pb={3}>
 				Morse Table
 			</Title3>
-			<Container col_md={3} col_sm={2} gap={16}>
+			<Container>
 				{Object.entries(morse).map(([letter, sequence]) => (
 					<Letter key={letter}>
 						<LetterName>{letter}</LetterName>
@@ -48,15 +48,27 @@ const MorseTable = () => {
 					</Letter>
 				))}
 			</Container>
-		</React.Fragment>
+		</Wrapper>
 	)
 }
 
 export default MorseTable
 
+const Wrapper = styled.div`
+	overflow: auto;
+	height: ${props => `calc(100vh - ${props.theme.basePt * 7}px)`};
+	padding: ${props =>
+		`0 ${props.theme.basePt * 3}px ${props.theme.basePt * 3}px ${props.theme
+			.basePt * 3}px`};
+`
+
+const Container = styled.div`
+	display: grid;
+	grid-gap: ${props => `${props.theme.basePt * 2}px`};
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+`
+
 const Letter = styled.div`
-	display: flex;
-	align-items: center;
 	background: ${props => props.theme.dark2};
 	padding: ${props => `${props.theme.basePt * 2}px`};
 	border-radius: ${props => `${props.theme.basePt * 0.75}px`};
@@ -70,7 +82,7 @@ const LetterName = styled.span`
 	padding-right: ${props => `${props.theme.basePt * 2}px`};
 `
 
-const LetterCode = styled.i`
-	font-weight: bold;
+const LetterCode = styled.span`
+	letter-spacing: 0.1px;
 	font-size: ${props => `${props.theme.basePt * 3}px`};
 `
