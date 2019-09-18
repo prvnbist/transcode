@@ -1,14 +1,7 @@
 import React from 'react'
+import Editor, { monaco } from '@monaco-editor/react'
 
-import {
-	Form,
-	FieldSet,
-	Legend,
-	TextArea,
-	Error,
-	Button,
-	Title3
-} from '../../styles/index'
+import { Error, EditorWrapper } from '../../styles/index'
 
 const morse = {
 	'01': 'a',
@@ -39,7 +32,24 @@ const morse = {
 	'1100': 'z'
 }
 
-const splitTowords = code => {
+monaco
+	.init()
+	.then(monaco => {
+		fetch('/solarized-dark.json')
+			.then(res => res.json())
+			.then(data => {
+				monaco.editor.defineTheme('solarized-dark', data)
+				monaco.editor.setTheme('solarized-dark')
+			})
+	})
+	.catch(error =>
+		console.error(
+			'An error occurred during initialization of Monaco: ',
+			error
+		)
+	)
+
+const splitToWords = code => {
 	return code
 		.replace(/\n/g, ' ')
 		.split('/')
@@ -65,25 +75,14 @@ const convertBinaryToText = (binaryWords, morse) => {
 }
 
 const MorseToText = () => {
-	const [morseCode, setMorseCode] = React.useState('')
+	const editorRef = React.useRef()
+	const [input] = React.useState('')
 	const [errors, setError] = React.useState('')
-	const translatedText = React.useRef(null)
-	const onSubmit = e => {
-		e.preventDefault()
-		const words = splitTowords(morseCode)
-		const binaryArray = convertWordsToBinaryArray(words)
-		const binaryWords = joinBinaryWordArray(binaryArray)
-		const parsedText = convertBinaryToText(binaryWords, morse)
-		translatedText.current.value = parsedText
-	}
+	const [output, setOutput] = React.useState('')
 
-	const keySequence = ['Control', 'Enter']
-	let userInput = new Array(keySequence.length)
-	const shortcut = e => {
-		userInput = [...userInput.slice(1), e.key]
-		if (keySequence.every((v, k) => v === userInput[k])) {
-			onSubmit(e)
-		}
+	function handleEditorDidMount(_, editor) {
+		editorRef.current = editor
+		listenEditorChagnes()
 	}
 
 	const validate = value => {
@@ -100,44 +99,47 @@ const MorseToText = () => {
 		return setError('')
 	}
 
+	function listenEditorChagnes() {
+		editorRef.current.onDidChangeModelContent(ev => {
+			validate(editorRef.current.getValue())
+			const words = splitToWords(editorRef.current.getValue())
+			const binaryArray = convertWordsToBinaryArray(words)
+			const binaryWords = joinBinaryWordArray(binaryArray)
+			const parsedText = convertBinaryToText(binaryWords, morse)
+			setOutput(parsedText)
+		})
+	}
+
+	const inputEditorOptions = {
+		fontSize: 16,
+		minimap: {
+			enabled: false
+		},
+		wordWrap: 'on'
+	}
+
+	const outputEditorOptions = {
+		...inputEditorOptions,
+		readOnly: true
+	}
+
 	return (
-		<React.Fragment>
-			<Title3 pt={3} pb={3}>
-				Morse To Text
-			</Title3>
-			<Form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
-				<FieldSet>
-					<Legend>Morse</Legend>
-					<TextArea
-						name="text"
-						id="text"
-						placeholder="Use single space inbetween letters and / for space between words"
-						value={morseCode}
-						onChange={e =>
-							setMorseCode(e.target.value) ||
-							validate(e.target.value)
-						}
-					/>
-				</FieldSet>
-				{errors && <Error>{errors}</Error>}
-				<div>
-					<Button type="submit" mb={3}>
-						Translate
-					</Button>
-				</div>
-				<FieldSet>
-					<Legend>Text</Legend>
-					<TextArea
-						style={{ fontWeight: 'bold' }}
-						ref={translatedText}
-						name="translatedText"
-						id="translatedText"
-						readOnly
-					/>
-				</FieldSet>
-			</Form>
-			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
-		</React.Fragment>
+		<EditorWrapper>
+			<Editor
+				value={input}
+				language="text"
+				theme={'solarized-dark'}
+				options={inputEditorOptions}
+				editorDidMount={handleEditorDidMount}
+			/>
+			<Editor
+				value={output}
+				language="text"
+				theme={'solarized-dark'}
+				options={outputEditorOptions}
+			/>
+			{errors && <Error>{errors}</Error>}
+		</EditorWrapper>
 	)
 }
 

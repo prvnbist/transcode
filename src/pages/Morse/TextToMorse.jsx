@@ -1,15 +1,7 @@
 import React from 'react'
+import Editor, { monaco } from '@monaco-editor/react'
 
-import {
-	Form,
-	FieldSet,
-	Legend,
-	TextArea,
-	Tip,
-	Error,
-	Button,
-	Title3
-} from '../../styles/index'
+import { Error, EditorWrapper } from '../../styles/index'
 
 const morse = {
 	a: [0, 1],
@@ -40,35 +32,32 @@ const morse = {
 	z: [1, 1, 0, 0]
 }
 
-const TextToMorse = () => {
-	const [text, setText] = React.useState('')
-	const [errors, setError] = React.useState('')
-	const morseText = React.useRef(null)
-	const onSubmit = e => {
-		e.preventDefault()
-		const arrayOfWords = text
-			.replace(/\n/g, ' ')
-			.replace(/[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g, '')
-			.split(' ')
-			.map(word => word.toLowerCase())
-			.filter(Boolean)
-		let morseWord = []
-		arrayOfWords.map(word => {
-			let parsed = [...word].map(letter =>
-				morse[letter].map(i => (i === 0 ? '.' : '-')).join('')
-			)
-			return morseWord.push(parsed.join(' '))
-		})
-		morseText.current.value = morseWord.join(' / ')
-	}
+monaco
+	.init()
+	.then(monaco => {
+		fetch('/solarized-dark.json')
+			.then(res => res.json())
+			.then(data => {
+				monaco.editor.defineTheme('solarized-dark', data)
+				monaco.editor.setTheme('solarized-dark')
+			})
+	})
+	.catch(error =>
+		console.error(
+			'An error occurred during initialization of Monaco: ',
+			error
+		)
+	)
 
-	const keySequence = ['Control', 'Enter']
-	let userInput = new Array(keySequence.length)
-	const shortcut = e => {
-		userInput = [...userInput.slice(1), e.key]
-		if (keySequence.every((v, k) => v === userInput[k])) {
-			onSubmit(e)
-		}
+const TextToMorse = () => {
+	const editorRef = React.useRef()
+	const [input] = React.useState('')
+	const [errors, setError] = React.useState('')
+	const [output, setOutput] = React.useState('')
+
+	function handleEditorDidMount(_, editor) {
+		editorRef.current = editor
+		listenEditorChagnes()
 	}
 
 	const validate = value => {
@@ -85,41 +74,62 @@ const TextToMorse = () => {
 		return setError('')
 	}
 
+	const translate = value => {
+		const arrayOfWords = value
+			.replace(/\n/g, ' ')
+			.replace(/[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g, '')
+			.split(' ')
+			.map(word => word.toLowerCase())
+			.filter(Boolean)
+		let morseWord = []
+		arrayOfWords.map(word => {
+			let parsed = [...word.trim()]
+				.filter(Boolean)
+				.map(letter =>
+					morse[letter].map(i => (i === 0 ? '.' : '-')).join('')
+				)
+			return morseWord.push(parsed.join(' '))
+		})
+		return morseWord.join(' / ')
+	}
+
+	function listenEditorChagnes() {
+		editorRef.current.onDidChangeModelContent(ev => {
+			validate(editorRef.current.getValue())
+			const output = translate(editorRef.current.getValue())
+			setOutput(output)
+		})
+	}
+
+	const inputEditorOptions = {
+		fontSize: 16,
+		minimap: {
+			enabled: false
+		},
+		wordWrap: 'on'
+	}
+	const outputEditorOptions = {
+		...inputEditorOptions,
+		readOnly: true
+	}
+
 	return (
-		<React.Fragment>
-			<Title3 pt={3} pb={3}>
-				Text to Morse
-			</Title3>
-			<Form onSubmit={onSubmit} onKeyDown={e => shortcut(e)}>
-				<FieldSet>
-					<Legend>Text</Legend>
-					<TextArea
-						name="text"
-						id="text"
-						value={text}
-						placeholder="Enter your text"
-						onChange={e =>
-							setText(e.target.value) || validate(e.target.value)
-						}
-					/>
-				</FieldSet>
-				{errors && <Error>{errors}</Error>}
-				<Button type="submit" mb={3}>
-					Translate
-				</Button>
-				<Tip>/ - Word Separator</Tip>
-				<FieldSet>
-					<Legend>Morse</Legend>
-					<TextArea
-						ref={morseText}
-						name="morseText"
-						id="morseText"
-						readOnly
-					/>
-				</FieldSet>
-			</Form>
-			<span>Pro Tip - Use Ctrl+Enter to convert the text.</span>
-		</React.Fragment>
+		<EditorWrapper>
+			<Editor
+				value={input}
+				language="text"
+				theme={'solarized-dark'}
+				options={inputEditorOptions}
+				editorDidMount={handleEditorDidMount}
+			/>
+			<Editor
+				value={output}
+				language="text"
+				theme={'solarized-dark'}
+				options={outputEditorOptions}
+			/>
+			{errors && <Error>{errors}</Error>}
+		</EditorWrapper>
 	)
 }
 
