@@ -28,7 +28,7 @@ const Header = ({ toggleMenu }) => {
 				</Link>
 			</Brand>
 			<GitHubButton
-				href="https://github.com/prvnbist/morse-translator"
+				href="https://github.com/prvnbist/transcode"
 				data-size="large"
 				data-show-count="true"
 				aria-label="Star prvnbist/morse-translator on GitHub">
