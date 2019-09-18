@@ -106,7 +106,7 @@ const TextToMorse = () => {
 		minimap: {
 			enabled: false
 		},
-		wordWrap: 'on'
+		wordWrap: 'bounded'
 	}
 	const outputEditorOptions = {
 		...inputEditorOptions,
