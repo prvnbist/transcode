@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 
 const Error = styled.div`
-	height: auto;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
 	background: ${props => props.theme.warning};
-	line-height: ${props => `${props.theme.basePt * 5}px`};
-	margin-bottom: ${props => `${props.theme.basePt * 3}px`};
-	border-radius: ${props => `${props.theme.basePt * 0.5}px`};
-	padding-left: ${props => `${props.theme.basePt * 1.75}px`};
+	height: ${props => `${props.theme.basePt * 8}px`};
+	padding: ${props => `0 ${props.theme.basePt * 2}px`};
+	line-height: ${props => `${props.theme.basePt * 8}px`};
 `
 
 export default Error
