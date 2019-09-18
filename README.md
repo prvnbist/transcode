@@ -21,3 +21,5 @@ ___
     - [ ] Encoder
     - [ ] Decoder
     - [ ] Parser
+ - [ ] CSS
+   - [ ] To Inline React Styles
