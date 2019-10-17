@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { MorseTable, MorseToText, TextToMorse } from './pages/Morse/index'
+import { Encode, Decode } from './pages/URL/index'
 
 import Header from './components/Header'
 import NavBar from './components/NavBar'
@@ -76,6 +77,8 @@ const Main = () => {
 							path="/morse/morse-table"
 							component={MorseTable}
 						/>
+						<Route path="/url/encode" component={Encode} />
+						<Route path="/url/decode" component={Decode} />
 					</App>
 				</Wrapper>
 			</ThemeProvider>

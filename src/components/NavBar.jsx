@@ -42,6 +42,20 @@ const NavBar = ({ isMenuVisible }) => {
 					path: '/morse/morse-table'
 				}
 			]
+		},
+		{
+			name: 'URL',
+			type: 'url',
+			links: [
+				{
+					name: 'Encode',
+					path: '/url/encode'
+				},
+				{
+					name: 'Decode',
+					path: '/url/decode'
+				}
+			]
 		}
 	]
 
