@@ -2,6 +2,7 @@ import React from 'react'
 import Editor, { monaco } from '@monaco-editor/react'
 
 import { Error, EditorWrapper } from '../../styles/index'
+import { inputEditorOptions, outputEditorOptions } from '../../editor'
 
 const morse = {
 	'01': 'a',
@@ -108,19 +109,6 @@ const MorseToText = () => {
 			const parsedText = convertBinaryToText(binaryWords, morse)
 			setOutput(parsedText)
 		})
-	}
-
-	const inputEditorOptions = {
-		fontSize: 16,
-		minimap: {
-			enabled: false
-		},
-		wordWrap: 'bounded'
-	}
-
-	const outputEditorOptions = {
-		...inputEditorOptions,
-		readOnly: true
 	}
 
 	return (
