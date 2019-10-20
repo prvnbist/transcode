@@ -64,6 +64,10 @@ const NavBar = ({ isMenuVisible }) => {
 				{
 					name: 'lowercase',
 					path: '/text-transform/lowercase'
+				},
+				{
+					name: 'UPPERCASE',
+					path: '/text-transform/UPPERCASE'
 				}
 			]
 		}

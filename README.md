@@ -21,7 +21,7 @@ ___
     - [x] Decoder
  - [ ] Text Transform
    - [x] lowercase
-   - [ ] UPPERCASE
+   - [x] UPPERCASE
    - [ ] camelCase
    - [ ] kebab-case
    - [ ] snake_case
