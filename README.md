@@ -20,7 +20,7 @@ ___
     - [x] Encoder
     - [x] Decoder
  - [ ] Text Transform
-   - [ ] lowercase
+   - [x] lowercase
    - [ ] UPPERCASE
    - [ ] camelCase
    - [ ] kebab-case

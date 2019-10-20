@@ -56,6 +56,16 @@ const NavBar = ({ isMenuVisible }) => {
 					path: '/url/decode'
 				}
 			]
+		},
+		{
+			name: 'Text Transform',
+			type: 'text_transform',
+			links: [
+				{
+					name: 'lowercase',
+					path: '/text-transform/lowercase'
+				}
+			]
 		}
 	]
 
