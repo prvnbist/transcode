@@ -5,21 +5,23 @@ ___
 **Demo**:link: - https://transcode.prvnbist.com
 
 **Built with**:hammer:               
-| ![ReactJs](https://res.cloudinary.com/prvnbist/image/upload/c_scale,h_80/v1564054850/React.js_logo-512_bvpygm.png "ReactJs")        |
+| ![ReactJs](https://res.cloudinary.com/prvnbist/image/upload/c_scale,h_80/v1564054850/React.js_logo-512_bvpygm.png "ReactJs") |
 | :-------------: |
 | ReactJs |  
 
 **Roadmap** :construction:
- - [ ] Morse
+ - [x] Morse
     - [x]  Text to Morse
     - [x] Morse to Text
-    - [ ] Listen to Morse Code 
     - [x] Validation for invalid characters
     - [x] Morse Table
 
- - [ ] URL
-    - [ ] Encoder
-    - [ ] Decoder
-    - [ ] Parser
- - [ ] CSS
-   - [ ] To Inline React Styles
+ - [x] URL
+    - [x] Encoder
+    - [x] Decoder
+ - [ ] Text Transform
+   - [ ] lowercase
+   - [ ] UPPERCASE
+   - [ ] camelCase
+   - [ ] kebab-case
+   - [ ] snake_case
