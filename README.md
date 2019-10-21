@@ -24,4 +24,4 @@ ___
    - [x] UPPERCASE
    - [x] camelCase
    - [x] kebab-case
-   - [ ] snake_case
+   - [x] snake_case

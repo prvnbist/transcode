@@ -76,6 +76,10 @@ const NavBar = ({ isMenuVisible }) => {
 				{
 					name: 'kebab-case',
 					path: '/text-transform/kebab-case'
+				},
+				{
+					name: 'snake_case',
+					path: '/text-transform/snake_case'
 				}
 			]
 		}

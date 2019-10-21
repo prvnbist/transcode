@@ -9,7 +9,8 @@ import {
 	LowerCase,
 	UpperCase,
 	CamelCase,
-	KebabCase
+	KebabCase,
+	SnakeCase
 } from './pages/Text Transform/index'
 
 import Header from './components/Header'
@@ -100,6 +101,10 @@ const Main = () => {
 						<Route
 							path="/text-transform/kebab-case"
 							component={KebabCase}
+						/>
+						<Route
+							path="/text-transform/snake_case"
+							component={SnakeCase}
 						/>
 					</App>
 				</Wrapper>
