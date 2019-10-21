@@ -75,7 +75,7 @@ const TextToMorse = () => {
 		return setError('')
 	}
 
-	const translate = value => {
+	const transcode = value => {
 		const arrayOfWords = value
 			.replace(/\n/g, ' ')
 			.replace(/[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g, '')
@@ -97,7 +97,7 @@ const TextToMorse = () => {
 	function listenEditorChagnes() {
 		editorRef.current.onDidChangeModelContent(ev => {
 			validate(editorRef.current.getValue())
-			const output = translate(editorRef.current.getValue())
+			const output = transcode(editorRef.current.getValue())
 			setOutput(output)
 		})
 	}
