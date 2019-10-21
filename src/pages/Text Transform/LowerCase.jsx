@@ -21,7 +21,7 @@ monaco
 		)
 	)
 
-const Encode = () => {
+const LowerCase = () => {
 	const editorRef = React.useRef()
 	const [input] = React.useState('')
 	const [output, setOutput] = React.useState('')
@@ -61,4 +61,4 @@ const Encode = () => {
 	)
 }
 
-export default Encode
+export default LowerCase

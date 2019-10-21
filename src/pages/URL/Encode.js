@@ -1,7 +1,7 @@
 import React from 'react'
 import Editor, { monaco } from '@monaco-editor/react'
 
-import { Error, EditorWrapper } from '../../styles/index'
+import { EditorWrapper } from '../../styles/index'
 import { inputEditorOptions, outputEditorOptions } from '../../editor'
 
 monaco
