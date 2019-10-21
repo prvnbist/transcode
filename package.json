@@ -1,6 +1,6 @@
 {
     "name": "transcode",
-    "version": "0.6.3",
+    "version": "0.6.4",
     "private": true,
     "dependencies": {
         "@monaco-editor/react": "^1.2.1",

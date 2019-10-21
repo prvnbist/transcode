@@ -23,5 +23,5 @@ ___
    - [x] lowercase
    - [x] UPPERCASE
    - [x] camelCase
-   - [ ] kebab-case
+   - [x] kebab-case
    - [ ] snake_case

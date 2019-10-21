@@ -5,7 +5,12 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { MorseTable, MorseToText, TextToMorse } from './pages/Morse/index'
 import { Encode, Decode } from './pages/URL/index'
-import { LowerCase, UpperCase, CamelCase } from './pages/Text Transform/index'
+import {
+	LowerCase,
+	UpperCase,
+	CamelCase,
+	KebabCase
+} from './pages/Text Transform/index'
 
 import Header from './components/Header'
 import NavBar from './components/NavBar'
@@ -91,6 +96,10 @@ const Main = () => {
 						<Route
 							path="/text-transform/camelCase"
 							component={CamelCase}
+						/>
+						<Route
+							path="/text-transform/kebab-case"
+							component={KebabCase}
 						/>
 					</App>
 				</Wrapper>
