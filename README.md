@@ -22,6 +22,6 @@ ___
  - [ ] Text Transform
    - [x] lowercase
    - [x] UPPERCASE
-   - [ ] camelCase
+   - [x] camelCase
    - [ ] kebab-case
    - [ ] snake_case

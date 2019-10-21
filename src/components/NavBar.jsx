@@ -68,6 +68,10 @@ const NavBar = ({ isMenuVisible }) => {
 				{
 					name: 'UPPERCASE',
 					path: '/text-transform/UPPERCASE'
+				},
+				{
+					name: 'camelCase',
+					path: '/text-transform/camelCase'
 				}
 			]
 		}
