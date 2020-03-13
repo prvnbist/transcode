@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import styled, { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import { monaco } from '@monaco-editor/react'
 
 import { MorseTable, MorseToText, TextToMorse } from './pages/Morse/index'
@@ -21,6 +21,8 @@ import editorTheme from './theme/dark'
 
 import './index.css'
 
+import { Wrapper, App } from './styled'
+
 monaco
 	.init()
 	.then(monaco => {
@@ -33,26 +35,6 @@ monaco
 			error
 		)
 	)
-
-const Wrapper = styled.div`
-	margin: auto;
-	display: grid;
-	height: 100vh;
-	width: 100%;
-	grid-template-areas: 'head head' 'nav main';
-	grid-template-rows: ${props => `${props.theme.basePt * 7}px`} 1fr;
-	grid-template-columns: ${props => `${props.theme.basePt * 40}px`} 1fr;
-	@media (max-width: 860px) {
-		width: 100%;
-		position: relative;
-		grid-template-areas: 'head head' 'main main';
-		grid-template-columns: 1fr;
-	}
-`
-
-const App = styled.div`
-	grid-area: main;
-`
 
 const theme = {
 	basePt: 8,
