@@ -14,8 +14,8 @@ import {
 	SnakeCase
 } from './pages/Text Transform/index'
 
-import Header from './sections/Header'
-import NavBar from './sections/NavBar'
+import Header from './sections/header'
+import NavBar from './sections/navbar'
 
 import editorTheme from './theme/dark'
 
