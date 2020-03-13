@@ -86,7 +86,7 @@ const NavBar = ({ isMenuVisible }) => {
 	]
 
 	return (
-		<Nav isMenuVisible={isMenuVisible}>
+		<Nav className={`${isMenuVisible ? 'active' : ''}`}>
 			{navItems.map(item => (
 				<Section key={item.type}>
 					<Header onClick={() => toggleSection(item.type)}>
@@ -117,13 +117,18 @@ const Nav = styled.nav`
 	border: ${props => `1px solid ${props.theme.dark2}`};
 	border-top: none;
 	@media (max-width: 860px) {
-		position: fixed;
+		left: 0;
 		bottom: 0;
+		width: 320px;
 		z-index: 1000;
-		display: ${props => (props.isMenuVisible ? 'block' : 'none')};
+		position: fixed;
+		transition: 0.3s ease-in-out;
+		transform: translateX(-320px);
 		background: ${props => props.theme.dark1};
 		top: ${props => `${props.theme.basePt * 7}px`};
-		width: ${props => `${props.theme.basePt * 40}px`};
+		&.active {
+			transform: translateX(0);
+		}
 	}
 `
 
