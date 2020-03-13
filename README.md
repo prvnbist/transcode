@@ -11,7 +11,7 @@ ___
 
 **Roadmap** :construction:
  - [x] Morse
-    - [x]  Text to Morse
+    - [x] Text to Morse
     - [x] Morse to Text
     - [x] Validation for invalid characters
     - [x] Morse Table
@@ -19,7 +19,8 @@ ___
  - [x] URL
     - [x] Encoder
     - [x] Decoder
- - [ ] Text Transform
+
+ - [x] Text Transform
    - [x] lowercase
    - [x] UPPERCASE
    - [x] camelCase

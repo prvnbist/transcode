@@ -4,7 +4,6 @@
     "private": true,
     "dependencies": {
         "@monaco-editor/react": "^1.2.1",
-        "firacode": "^2.0.0",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
         "react-github-btn": "^1.0.6",

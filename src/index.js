@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { monaco } from '@monaco-editor/react'
 
 import { MorseTable, MorseToText, TextToMorse } from './pages/Morse/index'
 import { Encode, Decode } from './pages/URL/index'
@@ -15,6 +16,21 @@ import {
 
 import Header from './components/Header'
 import NavBar from './components/NavBar'
+
+import editorTheme from './theme/dark'
+
+monaco
+	.init()
+	.then(monaco => {
+		monaco.editor.defineTheme('solarized-dark', editorTheme)
+		monaco.editor.setTheme('solarized-dark')
+	})
+	.catch(error =>
+		console.error(
+			'An error occurred during initialization of Monaco: ',
+			error
+		)
+	)
 
 const GlobalStyle = createGlobalStyle`
 	* {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Editor, { monaco } from '@monaco-editor/react'
+import Editor from '@monaco-editor/react'
 
 import { Error, EditorWrapper } from '../../styles/index'
 import { inputEditorOptions, outputEditorOptions } from '../../editor'
@@ -32,23 +32,6 @@ const morse = {
 	'1011': 'y',
 	'1100': 'z'
 }
-
-monaco
-	.init()
-	.then(monaco => {
-		fetch('/solarized-dark.json')
-			.then(res => res.json())
-			.then(data => {
-				monaco.editor.defineTheme('solarized-dark', data)
-				monaco.editor.setTheme('solarized-dark')
-			})
-	})
-	.catch(error =>
-		console.error(
-			'An error occurred during initialization of Monaco: ',
-			error
-		)
-	)
 
 const splitToWords = code => {
 	return code
