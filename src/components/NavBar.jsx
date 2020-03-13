@@ -20,7 +20,7 @@ const NavBar = ({ isMenuVisible }) => {
 
 	const toggleSection = type => {
 		setListVisibility({
-			[type]: true
+			[type]: !isListVisible[type]
 		})
 	}
 
