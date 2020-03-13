@@ -6,20 +6,13 @@ import Logo from '../../assets/Logo'
 
 import { HeaderContainer, Brand, MenuIcon } from './styled'
 
-const Header = ({ toggleMenu }) => {
-	const toggleMenuIcon = e => {
-		e.stopPropagation()
-		if (e.currentTarget.classList.contains('active')) {
-			toggleMenu(false)
-			return e.currentTarget.classList.remove('active')
-		}
-		toggleMenu(true)
-		return e.currentTarget.classList.add('active')
-	}
+const Header = ({ isMenuVisible, toggleMenu }) => {
 	return (
 		<HeaderContainer>
 			<Brand>
-				<MenuIcon onClick={e => toggleMenuIcon(e)}>
+				<MenuIcon
+					onClick={e => toggleMenu(!isMenuVisible)}
+					className={`${isMenuVisible ? 'active' : ''}`}>
 					<div></div>
 					<div></div>
 					<div></div>

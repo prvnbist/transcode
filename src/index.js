@@ -51,7 +51,10 @@ const Main = () => {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<Wrapper>
-					<Header toggleMenu={toggleMenu} />
+					<Header
+						toggleMenu={toggleMenu}
+						isMenuVisible={isMenuVisible}
+					/>
 					<NavBar isMenuVisible={isMenuVisible} />
 					<App>
 						<Route path="/" exact component={TextToMorse} />
