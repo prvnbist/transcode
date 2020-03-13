@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { monaco } from '@monaco-editor/react'
 
-import { MorseTable, MorseToText, TextToMorse } from './pages/Morse/index'
+import { MorseToText, TextToMorse } from './pages/Morse/index'
 import { Encode, Decode } from './pages/URL/index'
 import {
 	LowerCase,
@@ -65,10 +65,6 @@ const Main = () => {
 						<Route
 							path="/morse/morse-to-text"
 							component={MorseToText}
-						/>
-						<Route
-							path="/morse/morse-table"
-							component={MorseTable}
 						/>
 						<Route path="/url/encode" component={Encode} />
 						<Route path="/url/decode" component={Decode} />

@@ -37,10 +37,6 @@ const NavBar = ({ isMenuVisible }) => {
 				{
 					name: 'Morse To Text',
 					path: '/morse/morse-to-text'
-				},
-				{
-					name: 'Morse Table',
-					path: '/morse/morse-table'
 				}
 			]
 		},
