@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { monaco } from '@monaco-editor/react'
 
 import { MorseTable, MorseToText, TextToMorse } from './pages/Morse/index'
@@ -19,6 +19,8 @@ import NavBar from './components/NavBar'
 
 import editorTheme from './theme/dark'
 
+import './index.css'
+
 monaco
 	.init()
 	.then(monaco => {
@@ -31,21 +33,6 @@ monaco
 			error
 		)
 	)
-
-const GlobalStyle = createGlobalStyle`
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-		font-family: ${props => props.theme.font};
-	}
-
-	body {
-		color: #fff;
-		overflow: hidden;
-		background:  ${props => props.theme.dark1};
-	}
-`
 
 const Wrapper = styled.div`
 	margin: auto;
@@ -73,8 +60,7 @@ const theme = {
 	dark2: '#373D49',
 	active: '#7E8CE0',
 	warning: '#FFAF5F',
-	borderColor: '#373d49',
-	font: "'Fira Code', monospace"
+	borderColor: '#373d49'
 }
 
 const Main = () => {
@@ -83,7 +69,6 @@ const Main = () => {
 		<Router>
 			<ThemeProvider theme={theme}>
 				<Wrapper>
-					<GlobalStyle />
 					<Header toggleMenu={toggleMenu} />
 					<NavBar isMenuVisible={isMenuVisible} />
 					<App>
