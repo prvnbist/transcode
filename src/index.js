@@ -11,13 +11,14 @@ import {
 	upperCase,
 	lowerCase,
 	snakeCase
-} from './utils/textUtils'
+} from './utils/text'
 import {
 	validateTextToMorse,
 	validateMorseToText,
 	textToMorse,
 	morseToText
-} from './utils/morseUtils'
+} from './utils/morse'
+import { parseUrl, isUrlValid } from './utils/url'
 
 import Header from './sections/header'
 import NavBar from './sections/navbar'
@@ -101,6 +102,15 @@ const Main = () => {
 							path="/url/decode"
 							render={() => (
 								<Editor transcode={decodeURIComponent} />
+							)}
+						/>
+						<Route
+							path="/url/parse"
+							render={() => (
+								<Editor
+									transcode={parseUrl}
+									validate={isUrlValid}
+								/>
 							)}
 						/>
 						<Route

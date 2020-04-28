@@ -51,6 +51,10 @@ const NavBar = ({ isMenuVisible }) => {
 				{
 					name: 'Decode',
 					path: '/url/decode'
+				},
+				{
+					name: 'Parse',
+					path: '/url/parse'
 				}
 			]
 		},
