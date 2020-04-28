@@ -4,15 +4,20 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { monaco } from '@monaco-editor/react'
 
-import { MorseToText, TextToMorse } from './pages/Morse/index'
-import { Encode, Decode } from './pages/URL/index'
+import Editor from './sections/Editor'
 import {
-	LowerCase,
-	UpperCase,
-	CamelCase,
-	KebabCase,
-	SnakeCase
-} from './pages/Text Transform/index'
+	kebabCase,
+	camelCase,
+	upperCase,
+	lowerCase,
+	snakeCase
+} from './utils/textUtils'
+import {
+	validateTextToMorse,
+	validateMorseToText,
+	textToMorse,
+	morseToText
+} from './utils/morseUtils'
 
 import Header from './sections/header'
 import NavBar from './sections/navbar'
@@ -57,36 +62,66 @@ const Main = () => {
 					/>
 					<NavBar isMenuVisible={isMenuVisible} />
 					<App>
-						<Route path="/" exact component={TextToMorse} />
+						<Route
+							exact
+							path="/"
+							render={() => (
+								<Editor
+									transcode={textToMorse}
+									validate={validateTextToMorse}
+								/>
+							)}
+						/>
 						<Route
 							path="/morse/text-to-morse"
-							component={TextToMorse}
+							render={() => (
+								<Editor
+									transcode={textToMorse}
+									validate={validateTextToMorse}
+								/>
+							)}
 						/>
 						<Route
 							path="/morse/morse-to-text"
-							component={MorseToText}
+							render={() => (
+								<Editor
+									transcode={morseToText}
+									validate={validateMorseToText}
+								/>
+							)}
 						/>
-						<Route path="/url/encode" component={Encode} />
-						<Route path="/url/decode" component={Decode} />
+
+						<Route
+							path="/url/encode"
+							render={() => (
+								<Editor transcode={encodeURIComponent} />
+							)}
+						/>
+						<Route
+							path="/url/decode"
+							render={() => (
+								<Editor transcode={decodeURIComponent} />
+							)}
+						/>
 						<Route
 							path="/text-transform/lowercase"
-							component={LowerCase}
+							render={() => <Editor transcode={lowerCase} />}
 						/>
 						<Route
 							path="/text-transform/UPPERCASE"
-							component={UpperCase}
+							render={() => <Editor transcode={upperCase} />}
 						/>
 						<Route
 							path="/text-transform/camelCase"
-							component={CamelCase}
+							render={() => <Editor transcode={camelCase} />}
 						/>
 						<Route
 							path="/text-transform/kebab-case"
-							component={KebabCase}
+							render={() => <Editor transcode={kebabCase} />}
 						/>
 						<Route
 							path="/text-transform/snake_case"
-							component={SnakeCase}
+							render={() => <Editor transcode={snakeCase} />}
 						/>
 					</App>
 				</Wrapper>
