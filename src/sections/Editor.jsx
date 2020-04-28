@@ -1,8 +1,20 @@
 import React from 'react'
 import Editor from '@monaco-editor/react'
 
-import { Error, EditorWrapper } from '../styles/index'
-import { inputEditorOptions, outputEditorOptions } from '../editor'
+import { Error, EditorWrapper } from '../styles'
+
+const inputEditorOptions = {
+  fontSize: 16,
+  minimap: {
+    enabled: false
+  },
+  wordWrap: 'bounded'
+}
+
+const outputEditorOptions = {
+  ...inputEditorOptions,
+  readOnly: true
+}
 
 const Transform = ({ transcode, validate }) => {
   const editorRef = React.useRef()

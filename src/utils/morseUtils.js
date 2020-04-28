@@ -1,20 +1,10 @@
-const validateTextToMorse = value => {
+const TEXT_TO_MORSE_REGEX = /[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g;
+const MORSE_TO_TEXT_REGEX = /[!$%^&*()_+|~=`{}[\]:";'<>?,@#0-9a-z]/gi;
+
+const validate = match => value => {
   const chars = value
     .replace(/\n/g, ' ')
-    .match(/[-!$%^&*()_+|~=`{}[\]:";'<>?,./@#]/g, '')
-  if (chars && chars.length > 0) {
-    return (
-      `Invalid character${
-      chars.length === 1 ? '' : 's'
-      } will be omitted!: ${chars.join(' ')}`
-    )
-  }
-  return ''
-}
-const validateMorseToText = value => {
-  const chars = value
-    .replace(/\n/g, ' ')
-    .match(/[!$%^&*()_+|~=`{}[\]:";'<>?,@#0-9a-z]/gi)
+    .match(match, '')
   if (chars && chars.length > 0) {
     return (
       `Invalid character${
@@ -25,6 +15,8 @@ const validateMorseToText = value => {
   return ''
 }
 
+const validateTextToMorse = value => validate(TEXT_TO_MORSE_REGEX)(value);
+const validateMorseToText = value => validate(MORSE_TO_TEXT_REGEX)(value);
 
 const textToMorse = value => {
   const morse = {
@@ -128,7 +120,7 @@ const morseToText = value => {
       .map(word => word.map(letter => morse[letter]).join(''))
       .join(' ')
   }
-  
+
   const words = splitToWords(value)
   const binaryArray = convertWordsToBinaryArray(words)
   const binaryWords = joinBinaryWordArray(binaryArray)
