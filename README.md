@@ -1,31 +1,34 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/55ef842f-6975-4b00-b9c1-efbe9afd799f/deploy-status)](https://app.netlify.com/sites/morse-translator/deploys)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Morse Translator
+## Getting Started
 
----
+First, run the development server:
 
-**Demo**:link: - https://transcode.prvnbist.com
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-**Built with**:hammer:  
-| ![ReactJs](https://res.cloudinary.com/prvnbist/image/upload/c_scale,h_80/v1564054850/React.js_logo-512_bvpygm.png 'ReactJs') |
-| :-------------: |
-| ReactJs |
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**Roadmap** :construction:
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
--   [x] Morse
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-    -   [x] Text to Morse
-    -   [x] Morse to Text
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
--   [x] URL
+## Learn More
 
-    -   [x] Encoder
-    -   [x] Decoder
+To learn more about Next.js, take a look at the following resources:
 
--   [x] Text Transform
-    -   [x] lowercase
-    -   [x] UPPERCASE
-    -   [x] camelCase
-    -   [x] kebab-case
-    -   [x] snake_case
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
