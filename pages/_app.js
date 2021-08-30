@@ -1,7 +1,9 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
+import { useMonaco } from '@monaco-editor/react'
 
 import '../styles/globals.css'
+import dark from '../theme/dark.json'
 
 import { Header, NavBar } from '../sections'
 import { Wrapper, App } from '../styles/styles'
@@ -16,7 +18,16 @@ const theme = {
 }
 
 function MyApp({ Component, pageProps }) {
+   const monaco = useMonaco()
    const [isMenuVisible, toggleMenu] = React.useState(false)
+
+   React.useEffect(() => {
+      if (monaco) {
+         monaco.editor.defineTheme('dark', dark)
+         monaco.editor.setTheme('dark')
+      }
+   }, [monaco])
+
    return (
       <ThemeProvider theme={theme}>
          <Wrapper>

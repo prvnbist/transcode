@@ -83,6 +83,10 @@ export const NavBar = ({ isMenuVisible }) => {
                name: 'snake_case',
                path: '/text-transform/snake_case',
             },
+            {
+               name: 'Capitalize',
+               path: '/text-transform/Capitalize',
+            },
          ],
       },
    ]
