@@ -7,7 +7,7 @@ export default function Home() {
 
    React.useEffect(() => {
       router.push('/morse/text-to-morse')
-   }, [])
+   }, [router])
 
    return (
       <>
