@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 const IndexPage: NextPage = () => {
    const router = useRouter()
    React.useEffect(() => {
-      router.push('/lodash')
+      router.push('/text')
    }, [router])
    return null
 }
