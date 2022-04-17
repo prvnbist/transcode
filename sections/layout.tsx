@@ -1,0 +1,58 @@
+import React from 'react'
+import tw from 'twin.macro'
+import { NextPage } from 'next'
+
+import Header from './header'
+import InputEditor from './editors/input'
+import OutputEditor from './editors/output'
+
+const editorOptions = {
+   fontSize: 13,
+   fontLigature: true,
+}
+
+type LayoutProps = {
+   settings: JSX.Element
+   translator: ((input: string) => string) | null
+}
+
+const Layout: NextPage<LayoutProps> = ({
+   settings,
+   translator,
+}): JSX.Element => {
+   const [input, setInput] = React.useState('')
+   const [output, setOutput] = React.useState('')
+
+   const translate = () => {
+      setOutput(translator(input))
+   }
+
+   return (
+      <div tw="h-screen w-screen">
+         <Header />
+         <section tw="grid grid-cols-10">
+            <section tw="col-span-4">
+               <InputEditor
+                  input={input}
+                  setInput={setInput}
+                  editorOptions={editorOptions}
+               />
+            </section>
+            <section tw="col-span-2 p-3 border-l border-r border-[#25252a]">
+               <button
+                  onClick={translate}
+                  tw="text-sm bg-[#25252a] w-full h-10 rounded hover:(bg-[#222227])"
+               >
+                  Translate
+               </button>
+               <div tw="py-3">{settings}</div>
+            </section>
+            <section tw="col-span-4">
+               <OutputEditor output={output} editorOptions={editorOptions} />
+            </section>
+         </section>
+      </div>
+   )
+}
+
+export default Layout

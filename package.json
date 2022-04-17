@@ -23,10 +23,19 @@
       "start": "next start"
    },
    "dependencies": {
+      "@monaco-editor/react": "^4.4.2",
       "@stitches/react": "^1.2.5",
+      "lodash.camelcase": "^4.3.0",
+      "lodash.capitalize": "^4.2.1",
+      "lodash.kebabcase": "^4.1.1",
+      "lodash.lowercase": "^4.3.0",
+      "lodash.snakecase": "^4.1.1",
+      "lodash.startcase": "^4.4.0",
+      "lodash.uppercase": "^4.3.0",
       "next": "latest",
       "react": "^17.0.2",
-      "react-dom": "^17.0.2"
+      "react-dom": "^17.0.2",
+      "react-github-btn": "^1.2.2"
    },
    "devDependencies": {
       "@types/node": "^16.11.6",
