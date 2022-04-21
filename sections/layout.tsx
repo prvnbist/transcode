@@ -13,12 +13,19 @@ const editorOptions = {
 
 type LayoutProps = {
    settings: JSX.Element
+   language?:
+      | {
+           input?: 'text' | undefined
+           output?: 'text' | 'json' | undefined
+        }
+      | undefined
    translator: ((input: string) => string) | null
 }
 
 const Layout: NextPage<LayoutProps> = ({
    settings,
    translator,
+   language,
 }): JSX.Element => {
    const [input, setInput] = React.useState('')
    const [output, setOutput] = React.useState('')
@@ -36,6 +43,7 @@ const Layout: NextPage<LayoutProps> = ({
                   input={input}
                   setInput={setInput}
                   editorOptions={editorOptions}
+                  language={language?.input || 'text'}
                />
             </section>
             <section tw="col-span-2 p-3 border-l border-r border-[#25252a]">
@@ -54,7 +62,11 @@ const Layout: NextPage<LayoutProps> = ({
                <div tw="py-3">{settings}</div>
             </section>
             <section tw="col-span-4">
-               <OutputEditor output={output} editorOptions={editorOptions} />
+               <OutputEditor
+                  output={output}
+                  editorOptions={editorOptions}
+                  language={language?.output || 'text'}
+               />
             </section>
          </section>
       </div>

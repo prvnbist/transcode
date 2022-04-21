@@ -8,7 +8,7 @@ import GitHubButton from 'react-github-btn'
 const menus = [
    {
       label: 'Text',
-      link: '/text',
+      link: '/text?translator=camel-case',
       links: [
          {
             label: 'Camel Case',
@@ -37,6 +37,28 @@ const menus = [
          {
             label: 'Capitalize',
             url: '/text?translator=capitalize',
+         },
+      ],
+   },
+   {
+      label: 'URL',
+      link: '/url?translator=encode',
+      links: [
+         {
+            label: 'Encode',
+            url: '/url?translator=encode',
+         },
+         {
+            label: 'Decode',
+            url: '/url?translator=decode',
+         },
+         {
+            label: 'Parse',
+            url: '/url?translator=parse',
+         },
+         {
+            label: 'Extract Links',
+            url: '/url?translator=extract-links',
          },
       ],
    },
@@ -88,7 +110,7 @@ const Header: NextPage = () => {
             </GitHubButton>
          </div>
          {isMenuOpen && (
-            <ul tw="p-16 z-10 bg-black/40 absolute h-[calc(100vh - 48px)] inset-0 top-[48px]">
+            <ul tw="flex flex-wrap gap-12 p-16 z-10 bg-black/40 absolute h-[calc(100vh - 48px)] inset-0 top-[48px]">
                {menus.map(menu => (
                   <LinkSection
                      key={menu.label}

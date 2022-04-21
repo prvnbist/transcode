@@ -5,11 +5,13 @@ import Editor, { useMonaco } from '@monaco-editor/react'
 type OutputEditorProps = {
    output: string
    editorOptions: object
+   language: 'text' | 'json' | undefined
 }
 
 const OutputEditor: NextPage<OutputEditorProps> = ({
    output,
    editorOptions,
+   language = 'text',
 }) => {
    const monaco = useMonaco()
 
@@ -31,7 +33,7 @@ const OutputEditor: NextPage<OutputEditorProps> = ({
          value={output}
          theme="custom"
          height="calc(100vh - 48px)"
-         defaultLanguage="javascript"
+         defaultLanguage={language}
          options={{ ...editorOptions, readOnly: true }}
       />
    )

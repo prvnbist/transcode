@@ -6,12 +6,14 @@ type InputEditorProps = {
    input: string
    editorOptions: object
    setInput: (input: string) => void
+   language: 'text' | 'json' | undefined
 }
 
 const InputEditor: NextPage<InputEditorProps> = ({
    input,
    setInput,
    editorOptions,
+   language = 'text',
 }) => {
    const monaco = useMonaco()
 
@@ -33,8 +35,8 @@ const InputEditor: NextPage<InputEditorProps> = ({
          value={input}
          theme="custom"
          options={editorOptions}
+         defaultLanguage={language}
          height="calc(100vh - 48px)"
-         defaultLanguage="javascript"
          onChange={value => setInput(value)}
       />
    )
