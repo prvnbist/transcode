@@ -4,6 +4,7 @@ import Editor, { useMonaco } from '@monaco-editor/react'
 
 type InputEditorProps = {
    input: string
+   height: string
    editorOptions: object
    setInput: (input: string) => void
    language: 'text' | 'json' | 'html' | undefined
@@ -11,6 +12,7 @@ type InputEditorProps = {
 
 const InputEditor: NextPage<InputEditorProps> = ({
    input,
+   height,
    setInput,
    editorOptions,
    language = 'text',
@@ -34,9 +36,9 @@ const InputEditor: NextPage<InputEditorProps> = ({
       <Editor
          value={input}
          theme="custom"
+         height={height}
          options={editorOptions}
          defaultLanguage={language}
-         height="calc(100vh - 48px)"
          onChange={value => setInput(value)}
       />
    )

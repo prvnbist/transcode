@@ -3,6 +3,7 @@ import tw from 'twin.macro'
 import { NextPage } from 'next'
 
 import Header from './header'
+import { useWindowSize } from '../hooks'
 import InputEditor from './editors/input'
 import OutputEditor from './editors/output'
 
@@ -27,6 +28,7 @@ const Layout: NextPage<LayoutProps> = ({
    translator,
    language,
 }): JSX.Element => {
+   const size = useWindowSize()
    const [input, setInput] = React.useState('')
    const [output, setOutput] = React.useState('')
 
@@ -35,18 +37,19 @@ const Layout: NextPage<LayoutProps> = ({
    }
 
    return (
-      <div tw="h-screen w-screen">
+      <div tw="h-screen w-full md:w-screen">
          <Header />
-         <section tw="grid grid-cols-10">
-            <section tw="col-span-4">
+         <section tw="grid grid-cols-1 md:grid-cols-10">
+            <section tw="border border-[#25252a] col-span-1 rounded overflow-hidden m-4 md:(border-0 md:m-0 col-span-4)">
                <InputEditor
                   input={input}
                   setInput={setInput}
                   editorOptions={editorOptions}
                   language={language?.input || 'text'}
+                  height={size?.width < 768 ? '320px' : 'calc(100vh - 48px)'}
                />
             </section>
-            <section tw="col-span-2 p-3 border-l border-r border-[#25252a]">
+            <section tw="col-span-1 md:col-span-2 p-3 border-l border-r border-[#25252a]">
                <button
                   onClick={translate}
                   tw="flex items-center justify-between text-sm bg-transparent border border-[#25252a] w-full h-10 rounded outline-none focus:(bg-[#25252a]) hover:(bg-[#25252a])"
@@ -61,11 +64,12 @@ const Layout: NextPage<LayoutProps> = ({
                </button>
                <div tw="py-3">{settings}</div>
             </section>
-            <section tw="col-span-4">
+            <section tw="border border-[#25252a] col-span-1 rounded overflow-hidden m-4 mt-0 md:(border-0 md:m-0 col-span-4)">
                <OutputEditor
                   output={output}
                   editorOptions={editorOptions}
                   language={language?.output || 'text'}
+                  height={size?.width < 768 ? '320px' : 'calc(100vh - 48px)'}
                />
             </section>
          </section>
