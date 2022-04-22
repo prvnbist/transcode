@@ -6,7 +6,7 @@ type InputEditorProps = {
    input: string
    editorOptions: object
    setInput: (input: string) => void
-   language: 'text' | 'json' | undefined
+   language: 'text' | 'json' | 'html' | undefined
 }
 
 const InputEditor: NextPage<InputEditorProps> = ({

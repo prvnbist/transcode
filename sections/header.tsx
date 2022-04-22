@@ -62,6 +62,15 @@ const menus = [
          },
       ],
    },
+   {
+      label: 'HTML',
+      link: '/html?translator=pug',
+      links: [
+         { label: 'Pug', url: '/html?translator=pug' },
+         { label: 'JSX', url: '/html?translator=jsx' },
+         { label: 'AST', url: '/html?translator=ast' },
+      ],
+   },
 ]
 
 const Header: NextPage = () => {

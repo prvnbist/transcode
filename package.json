@@ -25,7 +25,11 @@
    "dependencies": {
       "@monaco-editor/react": "^4.4.2",
       "@stitches/react": "^1.2.5",
+      "axios": "^0.26.1",
       "get-urls": "^11.0.0",
+      "html-to-ast": "^0.0.6",
+      "html2pug": "^4.0.0",
+      "htmltojsx": "^0.3.0",
       "is-url": "^1.2.4",
       "lodash.camelcase": "^4.3.0",
       "lodash.capitalize": "^4.2.1",

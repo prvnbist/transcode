@@ -5,7 +5,7 @@ import Editor, { useMonaco } from '@monaco-editor/react'
 type OutputEditorProps = {
    output: string
    editorOptions: object
-   language: 'text' | 'json' | undefined
+   language: 'text' | 'json' | 'pug' | 'javascript' | undefined
 }
 
 const OutputEditor: NextPage<OutputEditorProps> = ({

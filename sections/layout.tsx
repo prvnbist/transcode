@@ -15,11 +15,11 @@ type LayoutProps = {
    settings: JSX.Element
    language?:
       | {
-           input?: 'text' | undefined
-           output?: 'text' | 'json' | undefined
+           input?: 'text' | 'html' | undefined
+           output?: 'text' | 'json' | 'pug' | 'javascript' | undefined
         }
       | undefined
-   translator: ((input: string) => string) | null
+   translator: ((input: string) => string | Promise<string>) | null
 }
 
 const Layout: NextPage<LayoutProps> = ({
@@ -30,8 +30,8 @@ const Layout: NextPage<LayoutProps> = ({
    const [input, setInput] = React.useState('')
    const [output, setOutput] = React.useState('')
 
-   const translate = () => {
-      setOutput(translator?.(input) || '')
+   const translate = async () => {
+      setOutput((await translator?.(input)) || '')
    }
 
    return (
