@@ -2,12 +2,15 @@ import React from 'react'
 import tw from 'twin.macro'
 import Url from 'url-parse'
 import isUrl from 'is-url'
-import { NextPage } from 'next'
 import getUrls from 'get-urls'
+import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import kebabCase from 'lodash.kebabcase'
 
-import Layout from '../sections/layout'
+const Layout = dynamic(() => import('../sections/layout') as any)
+const Translators = dynamic(
+   () => import('../components').then(module => module.Translators) as any
+)
 
 const METHODS: { [key: string]: (input: string) => string } = {
    ENCODE: (input: string): string => encodeURIComponent(input),
@@ -47,56 +50,27 @@ const URL: NextPage = (): JSX.Element => {
    }, [router])
    return (
       <Layout
-         translator={METHODS[option]}
+         convertor={METHODS[option]}
          language={{
             input: 'text',
             output: ['PARSE', 'EXTRACT_LINKS'].includes(option)
                ? 'json'
                : 'text',
          }}
-         settings={<Settings option={option} setOption={setOption} />}
+         translators={
+            <Translators
+               option={option}
+               options={[
+                  { value: 'ENCODE', label: 'Encode' },
+                  { value: 'DECODE', label: 'Decode' },
+                  { value: 'PARSE', label: 'Parse' },
+                  { value: 'EXTRACT_LINKS', label: 'Extract Links' },
+               ]}
+               setOption={setOption}
+            />
+         }
       />
    )
 }
 
 export default URL
-
-type SettingsProps = {
-   option: string
-   setOption: (option: string) => void
-}
-
-const Settings: NextPage<SettingsProps> = ({
-   option,
-   setOption,
-}): JSX.Element => {
-   const router = useRouter()
-   return (
-      <div>
-         <select
-            id="type"
-            name="type"
-            value={option}
-            onChange={e => {
-               setOption(e.target.value)
-               router.query.translator = kebabCase(e.target.value)
-               router.push(router)
-            }}
-            tw="px-3 text-sm bg-transparent border border-[#25252a] w-full h-10 rounded outline-none focus:(bg-[#25252a]) hover:(bg-[#25252a])"
-         >
-            <option value="ENCODE" tw="bg-[#25252a]">
-               Encode
-            </option>
-            <option value="DECODE" tw="bg-[#25252a]">
-               Decode
-            </option>
-            <option value="PARSE" tw="bg-[#25252a]">
-               Parse
-            </option>
-            <option value="EXTRACT_LINKS" tw="bg-[#25252a]">
-               Extract Links
-            </option>
-         </select>
-      </div>
-   )
-}

@@ -45,8 +45,10 @@
       "url-parse": "^1.5.10"
    },
    "devDependencies": {
+      "@types/is-url": "^1.2.30",
       "@types/node": "^16.11.6",
       "@types/react": "^17.0.34",
+      "@types/url-parse": "^1.4.8",
       "babel-plugin-macros": "^3.1.0",
       "tailwindcss": "^2.2.19",
       "twin.macro": "^2.8.1",

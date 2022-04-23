@@ -1,6 +1,7 @@
 import React from 'react'
 import tw from 'twin.macro'
 import { NextPage } from 'next'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import camelCase from 'lodash.camelcase'
@@ -11,7 +12,10 @@ import lowerCase from 'lodash.lowercase'
 import upperCase from 'lodash.uppercase'
 import capitalize from 'lodash.capitalize'
 
-import Layout from '../sections/layout'
+const Layout = dynamic(() => import('../sections/layout') as any)
+const Translators = dynamic(
+   () => import('../components').then(module => module.Translators) as any
+)
 
 const METHODS: { [key: string]: (input: string) => string } = {
    CAMEL_CASE: (input: string): string => camelCase(input),
@@ -50,59 +54,24 @@ const TextPage: NextPage = (): JSX.Element => {
 
    return (
       <Layout
-         translator={METHODS[option]}
-         settings={<Settings option={option} setOption={setOption} />}
+         convertor={METHODS[option]}
+         translators={
+            <Translators
+               option={option}
+               options={[
+                  { value: 'CAMEL_CASE', label: 'Camel Case' },
+                  { value: 'KEBAB_CASE', label: 'Kebab Case' },
+                  { value: 'SNAKE_CASE', label: 'Snake Case' },
+                  { value: 'START_CASE', label: 'Start Case' },
+                  { value: 'LOWER_CASE', label: 'Lower Case' },
+                  { value: 'UPPER_CASE', label: 'Upper Case' },
+                  { value: 'CAPITALIZE', label: 'Capitalize' },
+               ]}
+               setOption={setOption}
+            />
+         }
       />
    )
 }
 
 export default TextPage
-
-type SettingsProps = {
-   option: string
-   setOption: (option: string) => void
-}
-
-const Settings: NextPage<SettingsProps> = ({
-   option,
-   setOption,
-}): JSX.Element => {
-   const router = useRouter()
-   return (
-      <div>
-         <select
-            id="type"
-            name="type"
-            value={option}
-            onChange={e => {
-               setOption(e.target.value)
-               router.query.translator = kebabCase(e.target.value)
-               router.push(router)
-            }}
-            tw="px-3 text-sm bg-transparent border border-[#25252a] w-full h-10 rounded outline-none focus:(bg-[#25252a]) hover:(bg-[#25252a])"
-         >
-            <option value="CAMEL_CASE" tw="bg-[#25252a]">
-               Camel Case
-            </option>
-            <option value="KEBAB_CASE" tw="bg-[#25252a]">
-               Kebab Case
-            </option>
-            <option value="SNAKE_CASE" tw="bg-[#25252a]">
-               Snake Case
-            </option>
-            <option value="START_CASE" tw="bg-[#25252a]">
-               Start Case
-            </option>
-            <option value="LOWER_CASE" tw="bg-[#25252a]">
-               Lower Case
-            </option>
-            <option value="UPPER_CASE" tw="bg-[#25252a]">
-               Upper Case
-            </option>
-            <option value="CAPITALIZE" tw="bg-[#25252a]">
-               Capitalize
-            </option>
-         </select>
-      </div>
-   )
-}

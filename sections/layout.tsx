@@ -13,27 +13,27 @@ const editorOptions = {
 }
 
 type LayoutProps = {
-   settings: JSX.Element
+   translators: JSX.Element
    language?:
       | {
            input?: 'text' | 'html' | undefined
            output?: 'text' | 'json' | 'pug' | 'javascript' | undefined
         }
       | undefined
-   translator: ((input: string) => string | Promise<string>) | null
+   convertor: ((input: string) => string | Promise<string>) | null
 }
 
 const Layout: NextPage<LayoutProps> = ({
-   settings,
-   translator,
+   convertor,
    language,
+   translators,
 }): JSX.Element => {
    const size = useWindowSize()
    const [input, setInput] = React.useState('')
    const [output, setOutput] = React.useState('')
 
    const translate = async () => {
-      setOutput((await translator?.(input)) || '')
+      setOutput((await convertor?.(input)) || '')
    }
 
    return (
@@ -62,7 +62,7 @@ const Layout: NextPage<LayoutProps> = ({
                      <RightArrowIcon />
                   </span>
                </button>
-               <div tw="py-3">{settings}</div>
+               <div tw="py-3">{translators}</div>
             </section>
             <section tw="border border-[#25252a] col-span-1 rounded overflow-hidden m-4 mt-0 md:(border-0 md:m-0 col-span-4)">
                <OutputEditor

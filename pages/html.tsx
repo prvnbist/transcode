@@ -1,12 +1,15 @@
 import React from 'react'
 import axios from 'axios'
-import tw from 'twin.macro'
 import { NextPage } from 'next'
-import * as htmltoast from 'html-to-ast'
+import dynamic from 'next/dynamic'
+import tw, { styled } from 'twin.macro'
 import { useRouter } from 'next/router'
-import kebabCase from 'lodash.kebabcase'
+import { parse as parseToAST } from 'html-to-ast'
 
-import Layout from '../sections/layout'
+const Layout = dynamic(() => import('../sections/layout') as any)
+const Translators = dynamic(
+   () => import('../components').then(module => module.Translators) as any
+)
 
 const METHODS: { [key: string]: (input: string) => string | Promise<string> } =
    {
@@ -33,7 +36,7 @@ const METHODS: { [key: string]: (input: string) => string | Promise<string> } =
          }
       },
       AST: (input: string): string =>
-         JSON.stringify(htmltoast.parse(input), null, 4),
+         JSON.stringify(parseToAST(input), null, 4),
    }
 
 const TRANSLATORS: { [key: string]: string } = {
@@ -70,51 +73,24 @@ const HTML: NextPage = (): JSX.Element => {
    }, [router])
    return (
       <Layout
-         translator={METHODS[option]}
+         convertor={METHODS[option]}
          language={{
             input: 'html',
             output: outputLanguage,
          }}
-         settings={<Settings option={option} setOption={setOption} />}
+         translators={
+            <Translators
+               option={option}
+               options={[
+                  { value: 'PUG', label: 'Pug' },
+                  { value: 'JSX', label: 'JSX' },
+                  { value: 'AST', label: 'AST' },
+               ]}
+               setOption={setOption}
+            />
+         }
       />
    )
 }
 
 export default HTML
-
-type SettingsProps = {
-   option: string
-   setOption: (option: string) => void
-}
-
-const Settings: NextPage<SettingsProps> = ({
-   option,
-   setOption,
-}): JSX.Element => {
-   const router = useRouter()
-   return (
-      <div>
-         <select
-            id="type"
-            name="type"
-            value={option}
-            onChange={e => {
-               setOption(e.target.value)
-               router.query.translator = kebabCase(e.target.value)
-               router.push(router)
-            }}
-            tw="px-3 text-sm bg-transparent border border-[#25252a] w-full h-10 rounded outline-none focus:(bg-[#25252a]) hover:(bg-[#25252a])"
-         >
-            <option value="PUG" tw="bg-[#25252a]">
-               Pug
-            </option>
-            <option value="JSX" tw="bg-[#25252a]">
-               JSX
-            </option>
-            <option value="AST" tw="bg-[#25252a]">
-               AST
-            </option>
-         </select>
-      </div>
-   )
-}
