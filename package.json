@@ -25,7 +25,9 @@
    "dependencies": {
       "@monaco-editor/react": "^4.4.2",
       "@stitches/react": "^1.2.5",
+      "@walmartlabs/json-to-simple-graphql-schema": "^3.0.1",
       "axios": "^0.26.1",
+      "generate-schema": "^2.6.0",
       "get-urls": "^11.0.0",
       "html-to-ast": "^0.0.6",
       "html2pug": "^4.0.0",
@@ -39,10 +41,13 @@
       "lodash.startcase": "^4.4.0",
       "lodash.uppercase": "^4.3.0",
       "next": "latest",
+      "postcss": "^8.4.12",
+      "postcss-js": "^4.0.0",
       "react": "^17.0.2",
       "react-dom": "^17.0.2",
       "react-github-btn": "^1.2.2",
-      "url-parse": "^1.5.10"
+      "url-parse": "^1.5.10",
+      "yaml": "^2.0.1"
    },
    "devDependencies": {
       "@types/is-url": "^1.2.30",

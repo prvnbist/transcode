@@ -71,6 +71,23 @@ const menus = [
          { label: 'AST', url: '/html?translator=ast' },
       ],
    },
+   {
+      label: 'CSS',
+      link: '/css?translator=javascript',
+      links: [{ label: 'Javascript', url: '/css?translator=javascript' }],
+   },
+   {
+      label: 'JSON',
+      link: '/json?translator=yaml',
+      links: [
+         { label: 'YAML', url: '/json?translator=yaml' },
+         { label: 'MONGOOSE', url: '/json?translator=mongoose' },
+         { label: 'MYSQL', url: '/json?translator=mysql' },
+         { label: 'JSON Schema', url: '/json?translator=json-schema' },
+         { label: 'Big Query', url: '/json?translator=big-query' },
+         { label: 'GraphQL', url: '/json?translator=graphql' },
+      ],
+   },
 ]
 
 const Header: NextPage = () => {
@@ -119,7 +136,7 @@ const Header: NextPage = () => {
             </GitHubButton>
          </div>
          {isMenuOpen && (
-            <ul tw="flex flex-wrap gap-12 p-16 z-10 bg-black/40 absolute h-[calc(100vh - 48px)] inset-0 top-[48px]">
+            <ul tw="flex flex-wrap gap-12 p-16 z-10 backdrop-filter backdrop-blur-md bg-black/40 absolute h-[calc(100vh - 48px)] inset-0 top-[48px]">
                {menus.map(menu => (
                   <LinkSection
                      key={menu.label}

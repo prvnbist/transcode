@@ -41,7 +41,7 @@ export const Translators: NextPage<TranslatorsProps> = ({
             }}
          >
             {options.map(node => (
-               <option value={node.value} tw="bg-[#25252a]">
+               <option key={node.value} value={node.value} tw="bg-[#25252a]">
                   {node.label}
                </option>
             ))}
@@ -52,6 +52,7 @@ export const Translators: NextPage<TranslatorsProps> = ({
       <Styles.Options>
          {options.map(node => (
             <Styles.Option
+               key={node.value}
                is_active={option === node.value}
                onClick={() => onClick(node.value)}
             >
