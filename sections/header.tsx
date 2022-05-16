@@ -81,11 +81,20 @@ const menus = [
       link: '/json?translator=yaml',
       links: [
          { label: 'YAML', url: '/json?translator=yaml' },
-         { label: 'MONGOOSE', url: '/json?translator=mongoose' },
+         { label: 'Mongoose', url: '/json?translator=mongoose' },
          { label: 'MYSQL', url: '/json?translator=mysql' },
          { label: 'JSON Schema', url: '/json?translator=json-schema' },
          { label: 'Big Query', url: '/json?translator=big-query' },
          { label: 'GraphQL', url: '/json?translator=graphql' },
+      ],
+   },
+   {
+      label: 'Colors',
+      link: '/colors?translator=hex-to-rgb',
+      links: [
+         { label: 'Hex to RGB', url: '/colors?translator=hex-to-rgb' },
+         { label: 'RGB to Hex', url: '/colors?translator=rgb-to-hex' },
+         { label: 'Keyword to Hex', url: '/colors?translator=keyword-to-hex' },
       ],
    },
 ]

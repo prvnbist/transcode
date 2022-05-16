@@ -27,6 +27,7 @@
       "@stitches/react": "^1.2.5",
       "@walmartlabs/json-to-simple-graphql-schema": "^3.0.1",
       "axios": "^0.26.1",
+      "color-convert": "^2.0.1",
       "generate-schema": "^2.6.0",
       "get-urls": "^11.0.0",
       "html-to-ast": "^0.0.6",
