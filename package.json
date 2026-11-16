@@ -1,44 +1,81 @@
 {
-    "name": "transcode",
-    "version": "0.6.5",
-    "private": true,
-    "dependencies": {
-        "@monaco-editor/react": "^1.2.1",
-        "is-url": "^1.2.4",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0",
-        "react-github-btn": "^1.0.6",
-        "react-router-dom": "^5.0.1",
-        "react-scripts": "3.1.1",
-        "styled-components": "^4.3.2",
-        "url-parse": "^1.4.7"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/prvnbist/morse-translator.git"
-    },
-    "bugs": {
-        "url": "https://github.com/prvnbist/morse-translator/issues"
-    }
+	"name": "transcode",
+	"version": "0.7.0",
+	"private": true,
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/prvnbist/transcode.git"
+	},
+	"type": "module",
+	"imports": {
+		"#/*": "./src/*"
+	},
+	"scripts": {
+		"dev": "vp dev --port 3000",
+		"build": "vp build",
+		"preview": "vp preview",
+		"check": "vp check",
+		"test": "vp test"
+	},
+	"dependencies": {
+		"@fontsource-variable/inter": "^5.3.0",
+		"@fontsource-variable/jetbrains-mono": "^5.3.0",
+		"@modelcontextprotocol/sdk": "^1.32.2",
+		"@monaco-editor/react": "^4.7.0",
+		"@tabler/icons-react": "^3.52.0",
+		"@tailwindcss/vite": "^4.3.5",
+		"@tanstack/react-router": "^1.170.46",
+		"@tanstack/react-start": "^1.169.5",
+		"@walmartlabs/json-to-simple-graphql-schema": "^3.0.1",
+		"color-convert": "^2.0.1",
+		"cronstrue": "^3.39.0",
+		"fast-xml-parser": "^5.12.1",
+		"generate-schema": "^2.6.0",
+		"get-urls": "^12.1.0",
+		"html-to-ast": "^0.0.6",
+		"html-to-jsx-transform": "^1.2.1",
+		"html2pug": "^4.0.0",
+		"is-url": "^1.2.4",
+		"lodash.camelcase": "^4.3.0",
+		"lodash.capitalize": "^4.2.1",
+		"lodash.kebabcase": "^4.1.1",
+		"lodash.lowercase": "^4.3.0",
+		"lodash.snakecase": "^4.1.1",
+		"lodash.startcase": "^4.4.0",
+		"lodash.uppercase": "^4.3.0",
+		"nitro": "3.0.261103-rc",
+		"papaparse": "^5.7.1",
+		"postcss": "^8.5.33",
+		"postcss-js": "^5.1.0",
+		"react": "^19.3.1",
+		"react-dom": "^19.3.1",
+		"sql-formatter": "^15.9.0",
+		"tailwindcss": "^4.3.5",
+		"url-parse": "^1.5.10",
+		"yaml": "^2.9.1",
+		"zod": "^4.6.7"
+	},
+	"devDependencies": {
+		"@types/color-convert": "^2.0.4",
+		"@types/is-url": "^1.2.32",
+		"@types/lodash.camelcase": "^4.3.9",
+		"@types/lodash.capitalize": "^4.2.9",
+		"@types/lodash.kebabcase": "^4.1.9",
+		"@types/lodash.lowercase": "^4.3.9",
+		"@types/lodash.snakecase": "^4.1.9",
+		"@types/lodash.startcase": "^4.4.9",
+		"@types/lodash.uppercase": "^4.3.9",
+		"@types/node": "^26.6.6",
+		"@types/papaparse": "^5.5.2",
+		"@types/postcss-js": "^4.1.0",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"@types/url-parse": "^1.4.11",
+		"@vitejs/plugin-react": "^6.3.0",
+		"typescript": "^7.0.2",
+		"vite": "catalog:",
+		"vite-plus": "catalog:"
+	},
+	"packageManager": "pnpm@12.21.0"
 }
