@@ -55,6 +55,8 @@ curl '${SITE_URL}/api/encoding/base64-encode?input=hello&format=text'
 
 A remote MCP server (Streamable HTTP) is available at \`${SITE_URL}/mcp\` with two tools: \`list_converters\` and \`convert\`.
 
+Human-readable docs: ${absoluteUrl('/docs')}
+
 ## Converters
 
 ${sections.join('\n\n')}

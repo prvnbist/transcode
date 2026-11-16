@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LLMDotmdRouteImport } from './routes/LLM[.]md'
+import { Route as DocsRouteImport } from './routes/docs'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ToolTranslatorRouteImport } from './routes/$tool.$translator'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const LLMDotmdRoute = LLMDotmdRouteImport.update({
   id: '/LLM.md',
   path: '/LLM.md',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocsRoute = DocsRouteImport.update({
+  id: '/docs',
+  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -56,6 +62,7 @@ const ApiToolTranslatorRoute = ApiToolTranslatorRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/LLM.md': typeof LLMDotmdRoute
+  '/docs': typeof DocsRoute
   '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$tool/$translator': typeof ToolTranslatorRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/LLM.md': typeof LLMDotmdRoute
+  '/docs': typeof DocsRoute
   '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$tool/$translator': typeof ToolTranslatorRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/LLM.md': typeof LLMDotmdRoute
+  '/docs': typeof DocsRoute
   '/mcp': typeof McpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$tool/$translator': typeof ToolTranslatorRoute
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/LLM.md'
+    | '/docs'
     | '/mcp'
     | '/sitemap.xml'
     | '/$tool/$translator'
@@ -95,6 +105,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/LLM.md'
+    | '/docs'
     | '/mcp'
     | '/sitemap.xml'
     | '/$tool/$translator'
@@ -104,6 +115,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/LLM.md'
+    | '/docs'
     | '/mcp'
     | '/sitemap.xml'
     | '/$tool/$translator'
@@ -114,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LLMDotmdRoute: typeof LLMDotmdRoute
+  DocsRoute: typeof DocsRoute
   McpRoute: typeof McpRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToolTranslatorRoute: typeof ToolTranslatorRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/LLM.md'
       fullPath: '/LLM.md'
       preLoaderRoute: typeof LLMDotmdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/docs': {
+      id: '/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof DocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -178,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LLMDotmdRoute: LLMDotmdRoute,
+  DocsRoute: DocsRoute,
   McpRoute: McpRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ToolTranslatorRoute: ToolTranslatorRoute,

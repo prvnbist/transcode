@@ -24,6 +24,8 @@ curl -X POST https://transcode.prvnbist.com/api/text/camel-case \
 curl 'https://transcode.prvnbist.com/api/encoding/base64-encode?input=hello&format=text'
 ```
 
+Full API, MCP and LLM usage docs live at [`/docs`](https://transcode.prvnbist.com/docs).
+
 An LLM-friendly guide to every endpoint is served at [`/LLM.md`](https://transcode.prvnbist.com/LLM.md), generated from the tool registry.
 
 Status codes: `200` ok, `400` bad request, `404` unknown converter, `413` input too large, `422` the converter rejected the input (`error` holds the message). A non-fatal `warning` may accompany a 200.

@@ -158,6 +158,9 @@ function Home() {
 				<div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-[12px] text-subtle">
 					<span>© {new Date().getFullYear()} Transcode</span>
 					<span className="flex gap-4">
+						<a href="/docs" className="hover:text-fg">
+							Docs
+						</a>
 						<a href="/LLM.md" className="hover:text-fg">
 							LLM.md
 						</a>

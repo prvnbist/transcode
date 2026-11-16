@@ -90,6 +90,12 @@ export default function Header() {
 						<kbd className="kbd">K</kbd>
 					</span>
 				</button>
+				<Link
+					to="/docs"
+					className="flex h-8 items-center rounded-md px-2 text-muted transition-colors hover:bg-hover hover:text-fg"
+				>
+					Docs
+				</Link>
 				<a
 					href="https://github.com/prvnbist/transcode"
 					target="_blank"

@@ -10,8 +10,10 @@ export const Route = createFileRoute('/sitemap.xml')({
 	server: {
 		handlers: {
 			GET: () => {
-				const paths = tools.flatMap(tool =>
-					tool.translators.map(t => `/${tool.slug}/${t.slug}`)
+				const paths = ['/docs'].concat(
+					tools.flatMap(tool =>
+						tool.translators.map(t => `/${tool.slug}/${t.slug}`)
+					)
 				)
 				const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
