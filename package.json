@@ -8,6 +8,7 @@
 		"url": "git+https://github.com/prvnbist/transcode.git"
 	},
 	"type": "module",
+	"packageManager": "pnpm@12.21.0",
 	"imports": {
 		"#/*": "./src/*"
 	},
