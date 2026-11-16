@@ -1,31 +1,57 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/55ef842f-6975-4b00-b9c1-efbe9afd799f/deploy-status)](https://app.netlify.com/sites/morse-translator/deploys)
+## Transcode
 
-## Morse Translator
+An online toolbox for transcoding text: case transforms, URL, HTML, CSS, JSON, colors, and Morse.
 
----
+**Demo**: https://transcode.prvnbist.com
 
-**Demo**:link: - https://transcode.prvnbist.com
+**Built with**: [TanStack Start](https://tanstack.com/start) (with [Nitro](https://nitro.build) server functions), React 19, Tailwind CSS 4, [Vite+](https://viteplus.dev), deployed on Vercel.
 
-**Built with**:hammer:  
-| ![ReactJs](https://res.cloudinary.com/prvnbist/image/upload/c_scale,h_80/v1564054850/React.js_logo-512_bvpygm.png 'ReactJs') |
-| :-------------: |
-| ReactJs |
+### API
 
-**Roadmap** :construction:
+Every converter page `/{tool}/{translator}` is also available as `/api/{tool}/{translator}`. `GET /api` lists all endpoints. CORS is open, input is capped at 100 KB, and nothing is stored.
 
--   [x] Morse
+```bash
+# JSON in, JSON out
+curl -X POST https://transcode.prvnbist.com/api/json/yaml \
+  -H 'content-type: application/json' -d '{"input":"{\"a\":1}"}'
+# => { "tool": "json", "translator": "yaml", "output": "a: 1\n" }
 
-    -   [x] Text to Morse
-    -   [x] Morse to Text
+# Raw text in, plain text out
+curl -X POST https://transcode.prvnbist.com/api/text/camel-case \
+  -H 'accept: text/plain' -d 'hello world'
 
--   [x] URL
+# Short inputs via GET
+curl 'https://transcode.prvnbist.com/api/encoding/base64-encode?input=hello&format=text'
+```
 
-    -   [x] Encoder
-    -   [x] Decoder
+An LLM-friendly guide to every endpoint is served at [`/LLM.md`](https://transcode.prvnbist.com/LLM.md), generated from the tool registry.
 
--   [x] Text Transform
-    -   [x] lowercase
-    -   [x] UPPERCASE
-    -   [x] camelCase
-    -   [x] kebab-case
-    -   [x] snake_case
+Status codes: `200` ok, `400` bad request, `404` unknown converter, `413` input too large, `422` the converter rejected the input (`error` holds the message). A non-fatal `warning` may accompany a 200.
+
+### MCP
+
+Transcode also runs as a remote [MCP](https://modelcontextprotocol.io) server (Streamable HTTP, stateless) at `/mcp`, exposing `list_converters` and `convert`.
+
+```bash
+claude mcp add --transport http transcode https://transcode.prvnbist.com/mcp
+```
+
+### Development
+
+```bash
+pnpm install
+pnpm dev      # dev server on :3000
+pnpm check    # format, lint, typecheck
+pnpm test
+pnpm build    # server output in .output
+```
+
+### Roadmap
+
+- [x] Text: camel, kebab, snake, start, lower, upper case, capitalize
+- [x] URL: encode, decode, parse, extract links
+- [x] HTML: to Pug, JSX, AST
+- [x] CSS: to JavaScript object
+- [x] JSON: to YAML, Mongoose, MySQL, JSON Schema, BigQuery, GraphQL
+- [x] Colors: hex / rgb / keyword conversions
+- [x] Morse: text to morse, morse to text
