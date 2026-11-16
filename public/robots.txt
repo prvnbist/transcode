@@ -1,2 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://transcode.prvnbist.com/sitemap.xml
+
+# Guide for LLMs and agents: https://transcode.prvnbist.com/LLM.md
