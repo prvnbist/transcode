@@ -1,4 +1,12 @@
-/node_modules
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.DS_Store
+.tanstack
+.vercel
 debug.log
-build
-package-lock.json
+.vitest/
+.output
+.nitro
