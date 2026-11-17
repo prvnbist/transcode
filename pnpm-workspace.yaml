@@ -1,6 +1,8 @@
 packages:
     - .
 allowBuilds:
+    # postinstall only prints a funding banner (pulled in by posthog-js)
+    core-js: false
     esbuild: true
     lightningcss: true
 catalog:

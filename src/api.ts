@@ -1,5 +1,7 @@
 import { absoluteUrl, toolName } from '#/seo'
 import { findTranslator, tools } from '#/tools'
+import { flushPostHogLogs, getPostHogLogLogger } from '#/utils/posthog-logs'
+import { getPostHogClient } from '#/utils/posthog-server'
 
 export const MAX_INPUT_BYTES = 100 * 1024
 
@@ -145,6 +147,16 @@ export async function runConvert(
 	}
 }
 
+// Send analytics after the response instead of delaying it. The server
+// passes request.waitUntil (on Vercel it keeps the function alive until
+// the upload finishes); without it the promise just runs in the background.
+function afterResponse(request: Request, task: Promise<unknown>) {
+	const pending = task.catch(() => {})
+	;(
+		request as Request & { waitUntil?: (p: Promise<unknown>) => void }
+	).waitUntil?.(pending)
+}
+
 export async function handleConvert(
 	request: Request,
 	params: { tool: string; translator: string }
@@ -156,22 +168,59 @@ export async function handleConvert(
 
 		const res = await runConvert(params.tool, params.translator, input)
 		if (!res.ok) {
+			getPostHogLogLogger()?.emit({
+				severityText: 'WARN',
+				body: 'API conversion rejected',
+				attributes: {
+					event_name: 'api_conversion_rejected',
+					request_method: request.method,
+					status_code: res.status
+				}
+			})
 			const { status, ok: _ok, ...body } = res
+			afterResponse(request, flushPostHogLogs())
 			return json(body, status)
 		}
 
 		const wantsText =
 			url.searchParams.get('format') === 'text' ||
 			(request.headers.get('accept') ?? '').startsWith('text/plain')
-		if (wantsText) return text(res.output)
+		const response = wantsText
+			? text(res.output)
+			: json({
+					tool: res.tool,
+					translator: res.translator,
+					output: res.output,
+					...(res.warning ? { warning: res.warning } : {})
+				})
 
-		return json({
-			tool: res.tool,
-			translator: res.translator,
-			output: res.output,
-			...(res.warning ? { warning: res.warning } : {})
-		})
+		const posthog = getPostHogClient()
+		if (posthog) {
+			posthog.capture({
+				event: 'api_conversion_completed',
+				properties: {
+					tool: res.tool,
+					translator: res.translator,
+					request_method: request.method,
+					response_format: wantsText ? 'text' : 'json',
+					has_warning: Boolean(res.warning)
+				}
+			})
+			afterResponse(request, posthog.flush())
+		}
+
+		return response
 	} catch (error) {
+		getPostHogLogLogger()?.emit({
+			severityText: 'ERROR',
+			body: 'API conversion failed',
+			attributes: {
+				event_name: 'api_conversion_failed',
+				request_method: request.method,
+				failure_kind: error instanceof Error ? 'exception' : 'unknown'
+			}
+		})
+		afterResponse(request, flushPostHogLogs())
 		return json(
 			{
 				error:
