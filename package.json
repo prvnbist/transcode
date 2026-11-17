@@ -27,6 +27,8 @@
 		"@tailwindcss/vite": "^4.3.5",
 		"@tanstack/react-router": "^1.170.46",
 		"@tanstack/react-start": "^1.169.5",
+		"@vercel/analytics": "^2.0.1",
+		"@vercel/speed-insights": "^2.1.0",
 		"@walmartlabs/json-to-simple-graphql-schema": "^3.0.1",
 		"color-convert": "^2.0.1",
 		"cronstrue": "^3.39.0",
