@@ -1,4 +1,5 @@
 import { IconAlertTriangle, IconCheck } from '@tabler/icons-react'
+import { usePostHog } from '@posthog/react'
 import { useEffect, useRef, useState } from 'react'
 
 import CodeEditor from '#/components/CodeEditor'
@@ -23,6 +24,8 @@ const MAX_SHARE_LENGTH = 4000
 const MAX_FILE_SIZE = 1_000_000
 // Server functions: don't fire a request on every keystroke
 const REMOTE = new Set(['html/pug', 'html/jsx'])
+
+type ConversionSource = 'auto' | 'button' | 'keyboard_shortcut'
 
 const extensions: Record<string, string> = {
 	json: 'json',
@@ -89,10 +92,21 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 	const [auto, setAuto] = useState(false)
 	const fileRef = useRef<HTMLInputElement>(null)
 	const [isMac, setIsMac] = useState(true)
+	const posthog = usePostHog()
 
-	const translate = async () => {
-		setWarning(translator.validate?.(input) ?? '')
-		setOutput((await translator.convert(input)) || '')
+	const translate = async (source: ConversionSource) => {
+		const conversionWarning = translator.validate?.(input) ?? ''
+		const conversionOutput = (await translator.convert(input)) || ''
+		setWarning(conversionWarning)
+		setOutput(conversionOutput)
+		posthog?.capture('conversion_completed', {
+			tool: tool.slug,
+			translator: translator.slug,
+			source,
+			has_warning: Boolean(conversionWarning),
+			input_length: input.length,
+			output_length: conversionOutput.length
+		})
 	}
 
 	// Keep the latest translate() reachable from the global shortcut
@@ -105,7 +119,7 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 			if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
 				e.preventDefault()
 				e.stopPropagation()
-				translateRef.current()
+				translateRef.current('keyboard_shortcut')
 			}
 		}
 		// Capture phase so Monaco doesn't swallow the shortcut
@@ -115,6 +129,10 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 
 	const copy = async () => {
 		await navigator.clipboard.writeText(output)
+		posthog?.capture('conversion_output_copied', {
+			tool: tool.slug,
+			translator: translator.slug
+		})
 		setCopied(true)
 		setTimeout(() => setCopied(false), 1500)
 	}
@@ -124,6 +142,10 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 		url.search = ''
 		url.searchParams.set('input', input)
 		await navigator.clipboard.writeText(url.toString())
+		posthog?.capture('conversion_input_shared', {
+			tool: tool.slug,
+			translator: translator.slug
+		})
 		setShared(true)
 		setTimeout(() => setShared(false), 1500)
 	}
@@ -138,6 +160,11 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 		a.href = url
 		a.download = `${tool.slug}-${translator.slug}.${outputExt}`
 		a.click()
+		posthog?.capture('conversion_output_downloaded', {
+			tool: tool.slug,
+			translator: translator.slug,
+			output_extension: outputExt
+		})
 		URL.revokeObjectURL(url)
 	}
 
@@ -153,7 +180,7 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 	const isRemote = REMOTE.has(`${tool.slug}/${translator.slug}`)
 	useEffect(() => {
 		if (!auto || isRemote) return
-		const id = setTimeout(() => translateRef.current(), 300)
+		const id = setTimeout(() => translateRef.current('auto'), 300)
 		return () => clearTimeout(id)
 	}, [auto, isRemote, input])
 
@@ -166,7 +193,7 @@ export default function Layout({ tool, translator, initialInput }: Props) {
 				<Translators tool={tool} active={translator.slug} />
 				<button
 					type="button"
-					onClick={translate}
+					onClick={() => translate('button')}
 					className="flex h-7 shrink-0 cursor-pointer items-center gap-2 rounded-md bg-accent pr-1.5 pl-3 font-medium text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.15),0_1px_2px_rgb(0_0_0/0.4)] transition-colors hover:bg-accent-hover"
 				>
 					Translate

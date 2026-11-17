@@ -4,6 +4,7 @@ import {
 	Scripts,
 	createRootRoute
 } from '@tanstack/react-router'
+import { PostHogProvider } from '@posthog/react'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/react'
 
@@ -21,6 +22,27 @@ import appCss from '#/styles.css?url'
 const SEARCH_CONSOLE_TOKEN = import.meta.env.VITE_SEARCH_CONSOLE_TOKEN as
 	| string
 	| undefined
+const POSTHOG_PROJECT_TOKEN = import.meta.env
+	.VITE_PUBLIC_POSTHOG_PROJECT_TOKEN as string | undefined
+const POSTHOG_HOST = import.meta.env.VITE_PUBLIC_POSTHOG_HOST as
+	| string
+	| undefined
+
+if (
+	typeof window !== 'undefined' &&
+	!POSTHOG_PROJECT_TOKEN &&
+	import.meta.env.DEV
+) {
+	throw new Error(
+		'VITE_PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once VITE_PUBLIC_POSTHOG_PROJECT_TOKEN is configured'
+	)
+}
+
+if (typeof window !== 'undefined' && !POSTHOG_HOST && import.meta.env.DEV) {
+	throw new Error(
+		'VITE_PUBLIC_POSTHOG_HOST variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once VITE_PUBLIC_POSTHOG_HOST is configured'
+	)
+}
 
 export const Route = createRootRoute({
 	head: () => ({
@@ -77,15 +99,34 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const app = (
+		<>
+			{children}
+			<Analytics />
+			<SpeedInsights />
+		</>
+	)
+
 	return (
 		<html lang="en">
 			<head>
 				<HeadContent />
 			</head>
 			<body>
-				{children}
-				<Analytics />
-				<SpeedInsights />
+				{POSTHOG_PROJECT_TOKEN && POSTHOG_HOST ? (
+					<PostHogProvider
+						apiKey={POSTHOG_PROJECT_TOKEN}
+						options={{
+							api_host: POSTHOG_HOST,
+							capture_exceptions: true,
+							debug: import.meta.env.DEV
+						}}
+					>
+						{app}
+					</PostHogProvider>
+				) : (
+					app
+				)}
 				<Scripts />
 			</body>
 		</html>
