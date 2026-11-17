@@ -47,7 +47,7 @@ curl -X POST ${SITE_URL}/api/text/camel-case \\
 curl '${SITE_URL}/api/encoding/base64-encode?input=hello&format=text'
 \`\`\`
 
-- Input is capped at 100 KB. CORS is open.
+- Input is capped at 100 KB. Rate limit: 60 requests/minute per IP (429 when exceeded). CORS is open.
 - Status codes: \`200\` ok, \`400\` bad request, \`404\` unknown converter, \`413\` input too large, \`422\` the converter rejected the input (\`error\` holds the message).
 - A non-fatal \`warning\` field may accompany a \`200\` response.
 

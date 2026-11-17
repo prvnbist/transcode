@@ -33,6 +33,7 @@ const STATUS: Array<[string, string]> = [
 	['404', 'Unknown converter. See GET /api for the list.'],
 	['413', 'Input is larger than 100 KB.'],
 	['422', 'The converter rejected the input. "error" holds the message.'],
+	['429', 'Rate limit exceeded (60 requests/minute per IP). Wait and retry.'],
 	['500', 'Unexpected server error.']
 ]
 
@@ -47,7 +48,7 @@ const FAQS: Array<[string, string]> = [
 	],
 	[
 		'Is there a rate limit?',
-		'No rate limit is enforced by the app today, but please be considerate. Inputs are capped at 100 KB.'
+		'Yes: 60 requests per minute per IP across /api and /mcp. Exceeding it returns 429. Inputs are capped at 100 KB.'
 	],
 	[
 		'Can I call it from the browser?',
@@ -257,6 +258,7 @@ const AGENT_PROMPT = `You can convert, format and encode text with the Transcode
 - Convert: POST ${SITE_URL}/api/{tool}/{translator} with {"input": "..."}.
 - Add ?format=text to get only the converted text.
 - Inputs are limited to 100 KB. A 422 means the input is invalid for that converter; read the "error" field.
+- Rate limit: 60 requests/minute per IP; on 429, back off and retry.
 Full guide: ${SITE_URL}/LLM.md`
 
 // --- Page -------------------------------------------------------------------
@@ -345,6 +347,7 @@ function Docs() {
 								['Base URL', <C key="u">{SITE_URL}</C>],
 								['Auth', 'None'],
 								['Input limit', '100 KB'],
+								['Rate limit', '60 requests / minute per IP'],
 								['CORS', 'Open (any origin)'],
 								[
 									'Converter id',

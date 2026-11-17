@@ -8,7 +8,7 @@ An online toolbox for transcoding text: case transforms, URL, HTML, CSS, JSON, c
 
 ### API
 
-Every converter page `/{tool}/{translator}` is also available as `/api/{tool}/{translator}`. `GET /api` lists all endpoints. CORS is open, input is capped at 100 KB, and nothing is stored.
+Every converter page `/{tool}/{translator}` is also available as `/api/{tool}/{translator}`. `GET /api` lists all endpoints. CORS is open, input is capped at 100 KB, requests are rate limited to 60/minute per IP, and nothing is stored.
 
 ```bash
 # JSON in, JSON out

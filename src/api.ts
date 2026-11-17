@@ -203,8 +203,8 @@ export const apiIndex = () =>
 			post_text: 'POST /api/{tool}/{translator} with a text/plain body',
 			get: 'GET /api/{tool}/{translator}?input=...',
 			plain_output: 'Send "Accept: text/plain" or add ?format=text',
-			limits: `Input is capped at ${MAX_INPUT_BYTES / 1024} KB.`,
-			errors: '404 unknown converter, 413 too large, 422 invalid input',
+			limits: `Input is capped at ${MAX_INPUT_BYTES / 1024} KB. Rate limit: 60 requests/minute per IP.`,
+			errors: '404 unknown converter, 413 too large, 422 invalid input, 429 rate limited',
 			mcp: absoluteUrl('/mcp')
 		},
 		endpoints: tools.flatMap(tool =>
