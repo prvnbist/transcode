@@ -18,10 +18,6 @@ import {
 import appCss from '#/styles.css?url'
 
 // Optional, set in the hosting environment (e.g. Vercel project settings)
-const ANALYTICS_SRC = import.meta.env.VITE_ANALYTICS_SRC as string | undefined
-const ANALYTICS_DOMAIN = import.meta.env.VITE_ANALYTICS_DOMAIN as
-	| string
-	| undefined
 const SEARCH_CONSOLE_TOKEN = import.meta.env.VITE_SEARCH_CONSOLE_TOKEN as
 	| string
 	| undefined
@@ -62,15 +58,6 @@ export const Route = createRootRoute({
 				}
 			}).meta
 		],
-		scripts: ANALYTICS_SRC
-			? [
-					{
-						src: ANALYTICS_SRC,
-						defer: true,
-						'data-domain': ANALYTICS_DOMAIN
-					}
-				]
-			: [],
 		links: [
 			{ rel: 'stylesheet', href: appCss },
 			{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
